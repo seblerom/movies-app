@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		38195A40217BA31E0000E656 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A3F217BA31E0000E656 /* AppDelegate.swift */; };
-		38195A47217BA3200000E656 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38195A46217BA3200000E656 /* Assets.xcassets */; };
 		38195A4A217BA3200000E656 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38195A48217BA3200000E656 /* LaunchScreen.storyboard */; };
 		38195A55217BA3200000E656 /* MoviesAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A54217BA3200000E656 /* MoviesAppTests.swift */; };
 		38195A60217BA3200000E656 /* MoviesAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A5F217BA3200000E656 /* MoviesAppUITests.swift */; };
+		38195A74217BA7DE0000E656 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38195A72217BA7DE0000E656 /* Assets.xcassets */; };
+		38195A7B217BA8E70000E656 /* MAMoviesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A7A217BA8E70000E656 /* MAMoviesListViewController.swift */; };
+		38F1D0B2217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F1D0B1217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,15 +36,17 @@
 /* Begin PBXFileReference section */
 		38195A3C217BA31E0000E656 /* MoviesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38195A3F217BA31E0000E656 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		38195A46217BA3200000E656 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38195A49217BA3200000E656 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		38195A4B217BA3200000E656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38195A50217BA3200000E656 /* MoviesAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38195A54217BA3200000E656 /* MoviesAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAppTests.swift; sourceTree = "<group>"; };
 		38195A56217BA3200000E656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38195A5B217BA3200000E656 /* MoviesAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38195A5F217BA3200000E656 /* MoviesAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAppUITests.swift; sourceTree = "<group>"; };
 		38195A61217BA3200000E656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38195A72217BA7DE0000E656 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		38195A73217BA7DE0000E656 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38195A7A217BA8E70000E656 /* MAMoviesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMoviesListViewController.swift; sourceTree = "<group>"; };
+		38F1D0B1217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieListCellCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +98,9 @@
 			isa = PBXGroup;
 			children = (
 				38195A3F217BA31E0000E656 /* AppDelegate.swift */,
-				38195A46217BA3200000E656 /* Assets.xcassets */,
 				38195A48217BA3200000E656 /* LaunchScreen.storyboard */,
-				38195A4B217BA3200000E656 /* Info.plist */,
+				38195A76217BA7F30000E656 /* Features */,
+				38195A6F217BA7DE0000E656 /* Supporting files */,
 			);
 			path = MoviesApp;
 			sourceTree = "<group>";
@@ -117,6 +121,80 @@
 				38195A61217BA3200000E656 /* Info.plist */,
 			);
 			path = MoviesAppUITests;
+			sourceTree = "<group>";
+		};
+		38195A6F217BA7DE0000E656 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				38195A73217BA7DE0000E656 /* Info.plist */,
+				38195A70217BA7DE0000E656 /* Colors */,
+				38195A71217BA7DE0000E656 /* Assets */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		38195A70217BA7DE0000E656 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		38195A71217BA7DE0000E656 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				38195A72217BA7DE0000E656 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		38195A76217BA7F30000E656 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				38195A77217BA8260000E656 /* List Movies */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		38195A77217BA8260000E656 /* List Movies */ = {
+			isa = PBXGroup;
+			children = (
+				38F1D0B0217BB6B1001E70EE /* Presenters */,
+				38F1D0AF217BB6A4001E70EE /* Models */,
+				38F1D0AE217BB69D001E70EE /* Views */,
+				38F1D0AD217BB680001E70EE /* View Controllers */,
+			);
+			path = "List Movies";
+			sourceTree = "<group>";
+		};
+		38F1D0AD217BB680001E70EE /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				38195A7A217BA8E70000E656 /* MAMoviesListViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		38F1D0AE217BB69D001E70EE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				38F1D0B1217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		38F1D0AF217BB6A4001E70EE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		38F1D0B0217BB6B1001E70EE /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,8 +301,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38195A74217BA7DE0000E656 /* Assets.xcassets in Resources */,
 				38195A4A217BA3200000E656 /* LaunchScreen.storyboard in Resources */,
-				38195A47217BA3200000E656 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +327,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38195A7B217BA8E70000E656 /* MAMoviesListViewController.swift in Sources */,
+				38F1D0B2217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift in Sources */,
 				38195A40217BA31E0000E656 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,7 +498,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6389YLWL2N;
-				INFOPLIST_FILE = MoviesApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MoviesApp/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -436,7 +516,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6389YLWL2N;
-				INFOPLIST_FILE = MoviesApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MoviesApp/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
