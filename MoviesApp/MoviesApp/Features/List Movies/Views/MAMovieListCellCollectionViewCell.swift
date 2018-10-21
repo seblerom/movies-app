@@ -15,7 +15,7 @@ class MAMovieListCellCollectionViewCell: UICollectionViewCell {
         poster.translatesAutoresizingMaskIntoConstraints = false
         poster.backgroundColor = .gray
         poster.contentMode = .scaleAspectFill
-        poster.image = UIImage(named: "venomPoster")
+        poster.image = #imageLiteral(resourceName: "venomPoster")
         return poster
     }()
     
@@ -30,7 +30,6 @@ class MAMovieListCellCollectionViewCell: UICollectionViewCell {
     
     private func setupViews() {
         addImageConstraints()
-
     }
     
     private func addImageConstraints() {
