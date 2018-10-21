@@ -10,6 +10,15 @@ import UIKit
 
 class MAMovieListCellCollectionViewCell: UICollectionViewCell {
     
+    let posterImage : UIImageView = {
+        let poster = UIImageView(frame: CGRect.zero)
+        poster.translatesAutoresizingMaskIntoConstraints = false
+        poster.backgroundColor = .gray
+        poster.contentMode = .scaleAspectFill
+        poster.image = UIImage(named: "venomPoster")
+        return poster
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -20,7 +29,18 @@ class MAMovieListCellCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        backgroundColor = .gray
+        addImageConstraints()
+
+    }
+    
+    private func addImageConstraints() {
+        contentView.addSubview(posterImage)
+        NSLayoutConstraint.activate([
+            posterImage.topAnchor.constraint(equalTo: contentView.topAnchor),
+            posterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            posterImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            posterImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ])
     }
     
 }
