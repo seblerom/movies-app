@@ -17,7 +17,7 @@ class MAMovieListCellCollectionViewCell: UICollectionViewCell {
         let poster = MAMovieImage(frame: CGRect.zero)
         poster.translatesAutoresizingMaskIntoConstraints = false
         poster.contentMode = .scaleAspectFill
-        poster.backgroundColor = .white
+        poster.backgroundColor = #colorLiteral(red: 0.1868241429, green: 0.1963080466, blue: 0.2039772272, alpha: 0.5)
         poster.clipsToBounds = true
         return poster
     }()
@@ -56,10 +56,7 @@ extension MAMovieListCellCollectionViewCell : MAConfigurable {
     }
     
     private func prepareForLoadImage() {
-        guard let path = resultModel?.posterPath else {
-            self.backgroundColor = .white
-            return
-        }
+        guard let path = resultModel?.posterPath else { return }
         posterImage.loadImage(imageSize(), path)
     }
     

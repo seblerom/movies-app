@@ -22,7 +22,7 @@ class MAMovieDetailView: UIView {
     let backDropImage : MAMovieImage = {
         let backDrop = MAMovieImage(frame: CGRect.zero)
         backDrop.translatesAutoresizingMaskIntoConstraints = false
-        backDrop.backgroundColor = .gray
+        backDrop.backgroundColor = #colorLiteral(red: 0.1868241429, green: 0.1963080466, blue: 0.2039772272, alpha: 0.5)
         backDrop.contentMode = .scaleAspectFill
         return backDrop
     }()
