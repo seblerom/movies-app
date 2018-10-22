@@ -189,9 +189,9 @@ extension MAMoviesListViewController : UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? MAMovieListCellCollectionViewCell, let resultModel = cell.resultModel,let backdropPath = resultModel.backDropPath, let configuration = cell.configuration else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MAMovieListCellCollectionViewCell, let resultModel = cell.resultModel,let configuration = cell.configuration else { return }
 
-        let model = MADetailMovieModel(path:backdropPath,title:resultModel.title,plot:resultModel.overview,configuration:configuration)
+        let model = MADetailMovieModel(path:resultModel.backDropPath,title:resultModel.title,plot:resultModel.overview,configuration:configuration)
         let viewController = MAMovieDetailViewController(model: model)
         navigationController?.pushViewController(viewController, animated: true)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -229,10 +229,11 @@ extension MAMoviesListViewController {
     
     func filterContentForSearchText(_ searchText: String) {
         
-        if searchText.count > 3 {
+        if searchText.count > 2 {
             let networkClient = MANetworkClient()
+            add(loadingController)
             networkClient.execute(.search(searchText)) { (data, error) in
-                
+                self.loadingController.remove()
                 if let data = data {
                     let jsonDecoder = JSONDecoder()
                     self.filteredMovies = try? jsonDecoder.decode(MANowPlayingMoviesModel.self, from: data)

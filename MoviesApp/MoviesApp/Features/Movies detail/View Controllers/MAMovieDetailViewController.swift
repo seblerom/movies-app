@@ -57,7 +57,9 @@ class MAMovieDetailViewController: UIViewController {
             detailViewBottomConstraint.priority = UILayoutPriority(rawValue: 250)
             detailViewBottomConstraint.isActive = true
         
-        detailView.backDropImage.loadImage(imageSize(), model.path)
+        guard let path = model.path else { return }
+        
+        detailView.backDropImage.loadImage(imageSize(), path)
     }
     
     private func imageSize() -> String {
