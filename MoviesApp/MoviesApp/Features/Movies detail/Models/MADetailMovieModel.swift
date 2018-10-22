@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct MADetailMovieModel : Codable {
+struct MADetailMovieModel {
     let path : String?
     let title : String
     let plot : String
