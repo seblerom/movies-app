@@ -10,7 +10,7 @@ import UIKit
 
 class MALoadingViewController: UIViewController {
     
-    private lazy var activityIndicator = UIActivityIndicatorView(style: .white)
+    private lazy var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
     
     override func viewDidLoad() {
         super.viewDidLoad()

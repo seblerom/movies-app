@@ -11,3 +11,8 @@ import Foundation
 protocol MAConfigurable {
     func configure(_ resultModel: MANowPlayingMoviesResultModel,_ configuration:MAApiImagesConfigurationModel)
 }
+
+
+protocol MASetupable {
+    func viewSetup()
+}

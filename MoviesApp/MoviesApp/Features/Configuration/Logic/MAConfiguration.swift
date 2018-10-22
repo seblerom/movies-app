@@ -13,65 +13,57 @@ class MAConfiguration {
     static let serialQueueName = "com.moviesapp.configuration.queue"
     let serialQueue = DispatchQueue.init(label: serialQueueName, qos: .background)
     
-    func asynchronousConfigurationDataSource(completion:@escaping(_ configuration:MAApiImagesConfigurationModel)-> Void) {
+    func asynchronousConfigurationDataSource(completion:@escaping(_ configuration:MAApiImagesConfigurationModel?)-> Void) {
         
         self.serialQueue.async {
             self.retrieveConfiguration(completion: { (model) in
-                guard let model = model else { return }
-                completion(model)
+                DispatchQueue.main.async {
+                    completion(model)
+                }
             })
-        }
-    }
-    
-    func decode(_ data:Data) -> MAApiImagesConfigurationModel? {
-        let jsonDecoder = JSONDecoder()
-        return try? jsonDecoder.decode(MAApiImagesConfigurationModel.self, from: data)
-    }
-    
-    private func requestConfiguration(_ completion: @escaping (MAApiImagesConfigurationModel?) -> Void) {
-        configurationRequest { (data, error) in
-            if error == nil, let data = data {
-                completion(self.decode(data))
-            }
-            completion(nil)
         }
     }
     
     func retrieveConfiguration(completion:@escaping(_ configModel:MAApiImagesConfigurationModel?) -> Void) {
         
-        let fileManager = MAFileManager()
+        guard let model = MAFileManager.get(MAConstants.Configuration.file, object: MAApiImagesConfigurationModel.self) else {
+            
+            retrieveConfigurationFromServer(completion: { completion($0) })
+            return
+        }
         
-        if let data = fileManager.get(MAConstants.Configuration.file) {
-            if let previousDate = UserDefaults.standard.getDate() {
-                if dateGratherThan(previousDate) {
-                    requestConfiguration(completion)
-                }else{
-                    completion(decode(data))
-                }
+        if let previousDate = UserDefaults.standard.getDate() {
+            if dateGratherThan(previousDate) {
+                retrieveConfigurationFromServer(completion: {completion($0)})
+            }else{
+                completion(model)
             }
-        }else{
-            requestConfiguration(completion)
+        }else {
+            retrieveConfigurationFromServer(completion: {completion($0)})
         }
         
     }
     
-    func configurationRequest(completion:@escaping(_ data:Data?,_ error:Error?)-> Void ) {
-        let netWorkClient = MANetworkClient()
-        netWorkClient.execute(.configuration()) { (data, error) in
+    func retrieveConfigurationFromServer(completion:@escaping(_ configuration:MAApiImagesConfigurationModel?)-> Void ) {
+        
+        let netWorkClient = MANetworkClientDecodable<MAApiImagesConfigurationModel>()
+        netWorkClient.execute(.configuration()) { (result) in
             
-            if error == nil,let data = data {
-                
-                let fileManager = MAFileManager()
+            switch result {
+            case .failure(let error):
+                print(error.reason)
+                completion(nil)
+            case .success(let response):
                 DispatchQueue.global(qos: .background).async(execute: {
                     //Save to disk
-                    fileManager.save(MAConstants.Configuration.file, data: data)
+                    MAFileManager.save(MAConstants.Configuration.file, response as? MAApiImagesConfigurationModel)
                     //Save date to user defaults
                     UserDefaults.standard.save(Date())
                 })
-                completion(data,nil)
+                completion(response as? MAApiImagesConfigurationModel)
             }
-            completion(nil,error)
         }
+
     }
     
     func dateGratherThan(_ savedDate:Date) -> Bool {
@@ -92,3 +84,4 @@ class MAConfiguration {
         
     }
 }
+

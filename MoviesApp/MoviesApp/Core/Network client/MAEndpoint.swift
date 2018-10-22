@@ -8,9 +8,21 @@
 
 import Foundation
 
-struct MAEndpoint {
-    let path: String
-    let queryItems: [URLQueryItem]
+class MAEndpoint {
+    let url: URL?
+    
+    init(url: URL?) {
+        self.url = url
+    }
+    
+    init(path:String,queryItems:[URLQueryItem]) {
+        var components = URLComponents()
+        components.scheme = MAConstants.Urls.scheme
+        components.host = MAConstants.Urls.host
+        components.path = path
+        components.queryItems = queryItems
+        self.url = components.url
+    }
 }
 
 extension MAEndpoint {
@@ -28,41 +40,25 @@ extension MAEndpoint {
 
 }
 
-extension MAEndpoint {
-    
-    var url: URL? {
-        var components = URLComponents()
-        components.scheme = MAConstants.Urls.scheme
-        components.host = MAConstants.Urls.host
-        components.path = path
-        components.queryItems = queryItems
-        
-        return components.url
-    }
-}
-
 
 
 //Poster image - endpoint
 extension MAEndpoint {
     
     static func image(_ size : String, _ path : String) -> MAEndpoint {
-        return MAEndpoint(
+        return MAImageEndpoint(
             path: "/t/p/\(size)\(path)", queryItems: []
         )
     }
 }
 
-extension MAEndpoint {
-    
-    var imageUrl: URL? {
+class MAImageEndpoint: MAEndpoint {
+    override init(path:String, queryItems:[URLQueryItem]) {
         var components = URLComponents()
         components.scheme = MAConstants.Urls.scheme
         components.host = MAConstants.Urls.hostImage
         components.path = path
         components.queryItems = queryItems
-        
-        return components.url
+        super.init(url: components.url)
     }
 }
-

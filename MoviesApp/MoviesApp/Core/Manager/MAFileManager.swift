@@ -10,27 +10,32 @@ import Foundation
 
 class MAFileManager {
     
-    func save(_ path:String,data:Data) -> Void {
+    static func save<T:Encodable>(_ path:String,_ object:T) -> Void {
         
         let url = URL(fileURLWithPath: path, relativeTo: FileManager.default.cacheDirectoryURL)
+        
+        let encoder = JSONEncoder()
         do {
+            let data = try encoder.encode(object)
             try data.write(to: url)
         } catch let error {
             print(error.localizedDescription)
         }
     }
     
-    func get(_ path:String) -> Data? {
-        
-        var data : Data?
+    static func get<T:Decodable>(_ path:String,object:T.Type) -> T? {
         
         let url = URL(fileURLWithPath: path, relativeTo: FileManager.default.cacheDirectoryURL)
+        
+        let decoder = JSONDecoder()
         do {
-            data = try Data(contentsOf:url)
+            let data = try Data(contentsOf:url)
+            let model = try decoder.decode(object, from: data)
+            return model
         } catch let error {
             print(error.localizedDescription)
         }
-        return data
+        return nil
     }
     
 }

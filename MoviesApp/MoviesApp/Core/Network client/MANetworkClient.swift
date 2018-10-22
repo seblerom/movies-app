@@ -11,52 +11,88 @@ import Foundation
 
 class MANetworkClient {
     
-    typealias WebServiceResponse = (_ model:Data?,_ error:Error?) -> Void
+    let session:URLSession
     
-    func execute(_ endpoint:MAEndpoint, completionHandler: @escaping WebServiceResponse) {
+    init(session:URLSession = URLSession.shared) {
+        self.session = session
+    }
+    
+    typealias WebServiceResponse = (_ model:AnyObject?,_ error:Error?) -> Void
+    typealias response = (Result<Any, DataResponseError>) -> ()
+    
+    func execute(_ endpoint:MAEndpoint,completionHandler: @escaping response) {
         
         guard let url = endpoint.url else {
-            completionHandler(nil,nil)
+            completionHandler(Result.failure(DataResponseError.invalidUrl))
             return
         }
         
-        let session = URLSession.init(configuration: URLSessionConfiguration.default)
-        
-        let dataTask = session.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data, response, error) in
             
-            if let error = error {
-                print(error.localizedDescription)
-            }else if let data = data {
-                DispatchQueue.main.async {
-                    completionHandler(data,nil)
+            DispatchQueue.main.async {
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.hasSuccessStatusCode, let data = data else {
+                    completionHandler(Result.failure(DataResponseError.network))
+                    return
                 }
+                
+                completionHandler(Result.success(data))
             }
-        }
-        dataTask.resume()
-        
+            }.resume()
     }
+}
+
+class MANetworkClientDecodable<T:Codable>: MANetworkClient {
     
-    func loadImage(_ endpoint:MAEndpoint, completionHandler: @escaping WebServiceResponse) {
-        
-        guard let url = endpoint.imageUrl else {
-            completionHandler(nil,nil)
+    override func execute(_ endpoint: MAEndpoint, completionHandler: @escaping response) {
+        guard let url = endpoint.url else {
+            completionHandler(Result.failure(DataResponseError.invalidUrl))
             return
         }
         
-        let session = URLSession.init(configuration: URLSessionConfiguration.default)
-        
-        let dataTask = session.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data, response, error) in
             
-            if let error = error {
-                print(error.localizedDescription)
-            }else if let data = data {
-                DispatchQueue.main.async {
-                    completionHandler(data,nil)
+            DispatchQueue.main.async {
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.hasSuccessStatusCode,let data = data else {
+                    completionHandler(Result.failure(DataResponseError.network))
+                    return
                 }
+                
+                guard let decodedResponse = try? JSONDecoder().decode(T.self,from:data) else {
+                    completionHandler(Result.failure(DataResponseError.decoding))
+                    return
+                }
+                
+                completionHandler(Result.success(decodedResponse))
             }
-        }
-        dataTask.resume()
-        
+            }.resume()
     }
     
+}
+
+extension HTTPURLResponse {
+    var hasSuccessStatusCode: Bool {
+        return 200...299 ~= statusCode
+    }
+}
+
+enum DataResponseError: Error {
+    case network
+    case decoding
+    case invalidUrl
+    
+    var reason: String {
+        switch self {
+        case .network:
+            return "An error occurred while fetching data "
+        case .decoding:
+            return "An error occurred while decoding data"
+        case .invalidUrl:
+            return "The url is invalid"
+        }
+    }
+}
+
+enum Result<T, U: Error> {
+    case success(T)
+    case failure(U)
 }

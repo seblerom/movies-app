@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum MANavigationStyle{
+    case large
+    case normal
+}
 
 extension UINavigationController {
     
@@ -15,4 +19,19 @@ extension UINavigationController {
         return topViewController?.preferredStatusBarStyle ?? .default
     }
     
+    func setCustomStyle(_ style:MANavigationStyle = MANavigationStyle.normal) {
+
+        switch style {
+        case .large:
+            self.navigationBar.prefersLargeTitles = true
+            self.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white,NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 44)]
+        default:
+            self.navigationBar.prefersLargeTitles = false
+            self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white,NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 18)]
+        }
+        
+        self.navigationBar.barTintColor = .black
+        self.navigationBar.tintColor = .white
+        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+    }
 }

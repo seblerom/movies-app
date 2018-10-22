@@ -10,7 +10,6 @@ import UIKit
 
 class MAMoviesListViewController: UIViewController {
 
-    let posterAspectRatio : CGFloat = 9/16
     
     lazy var searchController :UISearchController = {
        let searchController = UISearchController(searchResultsController: nil)
@@ -37,78 +36,27 @@ class MAMoviesListViewController: UIViewController {
         return collection
     }()
     
-    private var configuration : MAApiImagesConfigurationModel? {
-        didSet{
-            loadMovies()
-        }
-    }
-    
-    private var moviesModel : MANowPlayingMoviesModel? {
-        didSet {
-            if moviesModel != nil {
-                collectionView.reloadData()
-            }else {
-                //Show error screen
-            }
-            
-        }
-    }
-    
-    private var filteredMovies : MANowPlayingMoviesModel? {
-        didSet {
-            if filteredMovies != nil {
-                collectionView.reloadData()
-            }
-        }
-    }
-    
-    lazy var loadingController : MALoadingViewController = {
+    private lazy var loadingController : MALoadingViewController = {
        return MALoadingViewController()
     }()
     
+    private lazy var presenter = MAMoviesListPresenter(delegate: self)
+    
     override func loadView() {
         super.loadView()
+        presenter.searchController = self.searchController
         collectionView.register(MAMovieListCellCollectionViewCell.self, forCellWithReuseIdentifier: MAMovieListCellCollectionViewCell.cellId)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-        title = "Movies"
-        addCollectionViewConstraints()
-        searchController.searchBar.placeholder = "Search Movies"
-        loadConfig()
-    }
-    
-    private func loadMovies() {
-        
-        let networkClient = MANetworkClient()
-        networkClient.execute(.nowPlaying()) { (data, error) in
-            self.loadingController.remove()
-            
-            guard let data = data else { return }
-            let jsonDecoder = JSONDecoder()
-            self.moviesModel = try? jsonDecoder.decode(MANowPlayingMoviesModel.self, from: data)
-        }
-        
-    }
-    
-    private func loadConfig()  {
-        add(loadingController)
-        let config = MAConfiguration()
-        config.asynchronousConfigurationDataSource { (model) in
-            self.configuration = model
-        }
+        viewSetup()
+        presenter.loadConfiguration()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.barTintColor = .black
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 44)]
-        navigationController?.navigationBar.tintColor = .white
-
+        navigationController?.setCustomStyle(.large)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -128,44 +76,34 @@ class MAMoviesListViewController: UIViewController {
 
 }
 
-extension MAMoviesListViewController : UIScrollViewDelegate {
+//MARK: - MASetupable
+extension MAMoviesListViewController : MASetupable {
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        searchController.searchBar.resignFirstResponder()
+    func viewSetup() {
+        view.backgroundColor = .black
+        title = "Movies"
+        addCollectionViewConstraints()
+        searchController.searchBar.placeholder = "Search Movies"
     }
-    
 }
 
 //MARK: - UICollectionViewDataSource
 extension MAMoviesListViewController : UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if isFiltering() {
-            return  filteredMovies?.results.count ?? 0
-        }
-        return moviesModel?.results.count ?? 0
+        return presenter.numberOfItems()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let model : MANowPlayingMoviesResultModel
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MAMovieListCellCollectionViewCell.cellId, for: indexPath) as! MAMovieListCellCollectionViewCell
         
-        if isFiltering() {
-            guard let filteredMoviesModel = filteredMovies?.results[indexPath.row] else { return cell }
-            model = filteredMoviesModel
-        }else {
-            guard let moviesModel = self.moviesModel?.results[indexPath.row] else { return cell }
-            model = moviesModel
-        }
-        
-        guard let configuration = self.configuration else { return cell }
-        
+        guard let model = presenter.modelForItem(collectionView, cellForItemAt: indexPath), let configuration = presenter.configuration else { return cell }
         
         cell.configure(model, configuration)
         
         return cell
+
     }
 }
 
@@ -173,10 +111,7 @@ extension MAMoviesListViewController : UICollectionViewDataSource {
 extension MAMoviesListViewController : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width = collectionView.frame.width / 2
-        let height = width / posterAspectRatio
-        return CGSize(width: width, height: height)
+        return presenter.imageSize(width: collectionView.bounds.width)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -188,14 +123,16 @@ extension MAMoviesListViewController : UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard let cell = collectionView.cellForItem(at: indexPath) as? MAMovieListCellCollectionViewCell, let resultModel = cell.resultModel,let configuration = cell.configuration else { return }
+        presenter.didSelect(collectionView, indexPath)
+    }
+    
+}
 
-        let model = MADetailMovieModel(path:resultModel.backDropPath,title:resultModel.title,plot:resultModel.overview,configuration:configuration)
-        let viewController = MAMovieDetailViewController(model: model)
-        navigationController?.pushViewController(viewController, animated: true)
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        
+//MARK: - UIScrollViewDelegate
+extension MAMoviesListViewController : UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchController.searchBar.resignFirstResponder()
     }
     
 }
@@ -204,11 +141,12 @@ extension MAMoviesListViewController : UICollectionViewDelegate, UICollectionVie
 extension MAMoviesListViewController : UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
+        presenter.filterContent(searchController.searchBar.text)
     }
 
 }
 
+//MARK: - UISearchBarDelegate
 extension MAMoviesListViewController : UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -217,30 +155,50 @@ extension MAMoviesListViewController : UISearchBarDelegate {
     
 }
 
-extension MAMoviesListViewController {
+//MARK: - MAMoviesListPresenterDelegate
+extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     
-    func isFiltering() -> Bool {
-        return searchController.isActive && !searchBarIsEmpty()
+    func willTransition(with model: MADetailMovieModel) {
+        let viewController = MAMovieDetailViewController(model: model)
+        navigationController?.pushViewController(viewController, animated: true)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
     
-    func searchBarIsEmpty() -> Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
+    
+    func loadFilteredMoviesSucces() {
+        collectionView.reloadData()
     }
     
-    func filterContentForSearchText(_ searchText: String) {
-        
-        if searchText.count > 2 {
-            let networkClient = MANetworkClient()
-            add(loadingController)
-            networkClient.execute(.search(searchText)) { (data, error) in
-                self.loadingController.remove()
-                if let data = data {
-                    let jsonDecoder = JSONDecoder()
-                    self.filteredMovies = try? jsonDecoder.decode(MANowPlayingMoviesModel.self, from: data)
-                }
-                
-            }
-        }
-
+    func loadFilteredMoviesError(_ description: String) {
+        //TODO: Show error message
     }
+    
+    func addLoadingController() {
+        add(loadingController)
+    }
+    
+    func removeLoadingController() {
+        loadingController.remove()
+    }
+    
+    
+    func loadConfigurationSuccess() {
+        presenter.loadMovies()
+    }
+    
+    func loadConfigurationError() {
+        //TODO: Show error message
+    }
+    
+    
+    func loadMoviesSucces() {
+        collectionView.reloadData()
+    }
+    
+    func loadMoviesError(_ description: String) {
+        //TODO: Show error message
+        loadingController.remove()
+    }
+    
+    
 }
