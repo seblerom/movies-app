@@ -10,6 +10,17 @@ import UIKit
 
 class MAMovieDetailViewController: UIViewController {
     
+    let model : MADetailMovieModel
+    
+    init(model : MADetailMovieModel) {
+        self.model = model
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Movie Details"
@@ -32,7 +43,8 @@ class MAMovieDetailViewController: UIViewController {
     private func setViewConstraints() {
         
         let factory = MAMovieDetailViewFactory()
-        let detailView = factory.makeDetailView(image: #imageLiteral(resourceName: "backDropTestImage"), title: "Avengers: Era de ultron", plot: "Moving our view code from a UIViewController subclass to a UIView subclass might not seem like that big of a deal. But this approach starts to become a lot more powerful once we start combining it with other patterns that let us improve the encapsulation of our code. Moving our view code from a UIViewController subclass to a UIView subclass might not seem like that big of a deal. But this approach starts to become a lot more powerful once we start combining it with other patterns that let us improve the encapsulation of our code. Moving our view code from a UIViewController subclass to a UIView subclass might not seem like that big of a deal. But this approach starts to become a lot more powerful once we start combining it with other patterns that let us improve the encapsulation of our code. Moving our view code from a UIViewController subclass to a UIView subclass might not seem like that big of a deal. But this approach starts to become a lot more powerful once we start combining it with other patterns that let us improve the encapsulation of our code. Moving our view code from a UIViewController subclass to a UIView subclass might not seem like that big of a deal. But this approach starts to become a lot more powerful once we start combining it with other patterns that let us improve the encapsulation of our code. Moving our view code from a UIViewController subclass to a UIView subclass might not seem like that big of a deal. But this approach starts to become a lot more powerful once we start combining it with other patterns that let us improve the encapsulation of our code. Moving our view code from a UIViewController subclass to a UIView subclass might not seem like that big of a deal. But this approach starts to become a lot more powerful once we start combining it with other patterns that let us improve the encapsulation of our code.")
+        let detailView = factory.makeDetailView(model: model) 
+
         view.addSubview(detailView)
         
         NSLayoutConstraint.activate([
@@ -44,6 +56,15 @@ class MAMovieDetailViewController: UIViewController {
             let detailViewBottomConstraint = detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             detailViewBottomConstraint.priority = UILayoutPriority(rawValue: 250)
             detailViewBottomConstraint.isActive = true
+        
+        detailView.backDropImage.loadImage(imageSize(), model.path)
+    }
+    
+    private func imageSize() -> String {
+        
+        let size = model.configuration.images.backdropSizes.filter({ $0 == MAConstants.BackdropSize.w1280.rawValue })
+        
+        return size.first ?? MAConstants.BackdropSize.original.rawValue
     }
     
     

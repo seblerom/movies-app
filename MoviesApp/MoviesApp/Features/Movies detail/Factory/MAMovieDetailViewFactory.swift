@@ -11,12 +11,11 @@ import UIKit
 
 class MAMovieDetailViewFactory {
     
-    func makeDetailView(image:UIImage,title:String,plot:String) ->  UIView {
+    func makeDetailView(model:MADetailMovieModel) ->  MAMovieDetailView {
         let view = MAMovieDetailView(frame: CGRect.zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backDropImage.image = image
-        view.titleLabel.text = title
-        view.plotOverViewLabel.text = plot
+        view.titleLabel.text = model.title
+        view.plotOverViewLabel.text = model.plot
         return view
     }
     

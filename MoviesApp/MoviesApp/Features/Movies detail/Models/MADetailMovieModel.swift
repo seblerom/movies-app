@@ -10,9 +10,8 @@ import Foundation
 
 
 struct MADetailMovieModel : Codable {
-    
     let path : String
     let title : String
     let plot : String
-    
+    let configuration : MAApiImagesConfigurationModel
 }

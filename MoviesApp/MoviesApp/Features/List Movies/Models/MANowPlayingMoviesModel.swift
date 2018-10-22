@@ -12,7 +12,7 @@ struct MANowPlayingMoviesModel : Codable {
     
     let page:Int
     let totalResults : Int
-    let dates : MANowPlayingMoviesDateModel
+    let dates : MANowPlayingMoviesDateModel?
     let totalPages : Int
     let results : [MANowPlayingMoviesResultModel]
     
@@ -30,7 +30,7 @@ struct MANowPlayingMoviesResultModel : Codable {
     let video : Bool
     let voteAverage : CGFloat
     let title : String
-    let posterPath: String
+    let posterPath: String?
     let originalLanguage : String
     let originalTitle : String
     let genreIds : [Int]

@@ -41,33 +41,6 @@ extension MAEndpoint {
     }
 }
 
-//Configuration endpoint
-extension MAEndpoint {
-    
-    static func configuration() -> MAEndpoint {
-        return MAEndpoint(
-            path: "/3/configuration",
-            queryItems: [
-                URLQueryItem(name: "api_key", value: apiKeyValue(MAConstants.Plist.key)),
-                ]
-        )
-    }
-}
-
-//Movies - Now playing endpoint
-extension MAEndpoint {
-    
-    static func nowPlaying(_ page : Int = 1) -> MAEndpoint {
-        return MAEndpoint(
-            path: "/3/movie/now_playing",
-            queryItems: [
-                URLQueryItem(name: "api_key", value: apiKeyValue(MAConstants.Plist.key)),
-                URLQueryItem(name: "page", value: "\(page)"),
-//                URLQueryItem(name: "language", value: "en-US")
-                ]
-        )
-    }
-}
 
 
 //Poster image - endpoint
