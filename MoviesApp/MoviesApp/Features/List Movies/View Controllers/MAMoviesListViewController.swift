@@ -12,12 +12,6 @@ class MAMoviesListViewController: UIViewController {
 
     let posterAspectRatio : CGFloat = 9/16
     
-    lazy var refreshControl : UIRefreshControl = {
-        let control = UIRefreshControl()
-        control.tintColor = .white
-        return control
-    }()
-    
     lazy var searchController :UISearchController = {
        let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
@@ -83,7 +77,6 @@ class MAMoviesListViewController: UIViewController {
         title = "Movies"
         addCollectionViewConstraints()
         searchController.searchBar.placeholder = "Search Movies"
-        collectionView.refreshControl = refreshControl
         loadConfig()
     }
     
