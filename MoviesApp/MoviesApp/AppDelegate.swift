@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -49,3 +51,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+class Config {
+
+    static let serialQueueName = "com.moviesapp.configuration.queue"
+    let serialQueue = DispatchQueue.init(label: serialQueueName, qos: .background)
+    
+    func asynchronousConfigurationDataSource(completion:@escaping(_ configuration:MAApiImagesConfigurationModel)-> Void) {
+
+        self.serialQueue.async {
+            self.retrieveConfiguration(completion: { (model) in
+                guard let model = model else { return }
+                completion(model)
+            })
+        }
+    }
+    
+    func decode(_ data:Data) -> MAApiImagesConfigurationModel? {
+        let jsonDecoder = JSONDecoder()
+        return try? jsonDecoder.decode(MAApiImagesConfigurationModel.self, from: data)
+    }
+    
+    func retrieveConfiguration(completion:@escaping(_ configModel:MAApiImagesConfigurationModel?) -> Void) {
+        
+        let fileManager = MAFileManager()
+        
+        if let data = fileManager.get(MAConstants.Configuration.file) {
+            if let previousDate = UserDefaults.standard.getDate() {
+                if dateGratherThan(previousDate) {
+                    configurationRequest { (data, error) in
+                        if error == nil, let data = data {
+                            completion(self.decode(data))
+                        }
+                        completion(nil)
+                    }
+                }else{
+                    completion(decode(data))
+                }
+            }
+        }else{
+            configurationRequest { (data, error) in
+                if error == nil, let data = data {
+                    completion(self.decode(data))
+                }
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    func configurationRequest(completion:@escaping(_ data:Data?,_ error:Error?)-> Void ) {
+        let netWorkClient = MANetworkClient()
+        netWorkClient.execute(.configuration()) { (data, error) in
+            if error == nil,let data = data {
+                
+                let fileManager = MAFileManager()
+                DispatchQueue.global(qos: .background).async(execute: {
+                    //Save to disk
+                    fileManager.save(MAConstants.Configuration.file, data: data)
+                    //Save date to user defaults
+                    UserDefaults.standard.save(Date())
+                })
+                completion(data,nil)
+            }
+            completion(nil,error)
+        }
+    }
+    
+    func dateGratherThan(_ savedDate:Date) -> Bool {
+        
+        let calendar = NSCalendar.current
+        let previousDate = calendar.startOfDay(for: savedDate)
+        let currentDate = calendar.startOfDay(for: Date())
+        
+        let components = calendar.dateComponents([.day], from: previousDate, to: currentDate)
+        
+        if let days = components.day,days > 7 {
+            return true
+        }
+        return false
+        
+    }
+}

@@ -6,7 +6,7 @@
 //  Copyright © 2018 seblerom. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 class MAMovieDetailViewFactory {

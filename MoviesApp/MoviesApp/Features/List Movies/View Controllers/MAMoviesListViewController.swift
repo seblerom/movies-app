@@ -12,6 +12,12 @@ class MAMoviesListViewController: UIViewController {
 
     let posterAspectRatio : CGFloat = 9/16
     
+    lazy var refreshControl : UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.tintColor = .white
+        return control
+    }()
+    
     lazy var searchController :UISearchController = {
        let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
@@ -36,6 +42,27 @@ class MAMoviesListViewController: UIViewController {
         return collection
     }()
     
+    private var configuration : MAApiImagesConfigurationModel? {
+        didSet{
+            loadMovies()
+        }
+    }
+    
+    private var moviesModel : MANowPlayingMoviesModel? {
+        didSet{
+            if moviesModel != nil {
+                collectionView.reloadData()
+            }else {
+                //Mostrar error
+            }
+            
+        }
+    }
+    
+    lazy var loadingController : MALoadingViewController = {
+       return MALoadingViewController()
+    }()
+    
     override func loadView() {
         super.loadView()
         collectionView.register(MAMovieListCellCollectionViewCell.self, forCellWithReuseIdentifier: MAMovieListCellCollectionViewCell.cellId)
@@ -47,6 +74,33 @@ class MAMoviesListViewController: UIViewController {
         title = "Movies"
         addCollectionViewConstraints()
         searchController.searchBar.placeholder = "Search Movies"
+        collectionView.refreshControl = refreshControl
+        
+        loadConfig()
+        
+    }
+    
+    private func loadMovies() {
+        
+        let networkClient = MANetworkClient()
+        networkClient.execute(.nowPlaying()) { (data, error) in
+            self.loadingController.remove()
+            
+            guard let data = data else { return }
+            let jsonDecoder = JSONDecoder()
+            self.moviesModel = try? jsonDecoder.decode(MANowPlayingMoviesModel.self, from: data)
+        }
+        
+    }
+    
+    private func loadConfig()  {
+        
+        add(loadingController)
+        
+        let config = Config()
+        config.asynchronousConfigurationDataSource { (model) in
+            self.configuration = model
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +110,7 @@ class MAMoviesListViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 44)]
         navigationController?.navigationBar.tintColor = .white
+
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -86,12 +141,17 @@ extension MAMoviesListViewController : UIScrollViewDelegate {
 //MARK: - UICollectionViewDataSource
 extension MAMoviesListViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return moviesModel?.results.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MAMovieListCellCollectionViewCell.cellId, for: indexPath)
+        guard let model = self.moviesModel?.results[indexPath.row],let configuration = self.configuration else { return UICollectionViewCell() }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MAMovieListCellCollectionViewCell.cellId, for: indexPath) as! MAMovieListCellCollectionViewCell
+        
+        cell.configure(model, configuration)
+        
         return cell
     }
 }

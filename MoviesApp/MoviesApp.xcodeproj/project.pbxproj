@@ -14,6 +14,19 @@
 		38195A74217BA7DE0000E656 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38195A72217BA7DE0000E656 /* Assets.xcassets */; };
 		38195A7B217BA8E70000E656 /* MAMoviesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A7A217BA8E70000E656 /* MAMoviesListViewController.swift */; };
 		38B86C24217C4C22000F10DE /* MAMovieDetailViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C23217C4C22000F10DE /* MAMovieDetailViewFactory.swift */; };
+		38B86C27217C4DB3000F10DE /* MADetailMovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C26217C4DB3000F10DE /* MADetailMovieModel.swift */; };
+		38B86C2A217C5668000F10DE /* MAMoviesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C29217C5668000F10DE /* MAMoviesListService.swift */; };
+		38B86C2D217C5B11000F10DE /* MAApiImagesConfigurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C2C217C5B11000F10DE /* MAApiImagesConfigurationModel.swift */; };
+		38B86C34217CE36B000F10DE /* MANetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C33217CE36B000F10DE /* MANetworkClient.swift */; };
+		38B86C36217CECFC000F10DE /* MAFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C35217CECFC000F10DE /* MAFileManager.swift */; };
+		38B86C38217CED3D000F10DE /* FileManager + MoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C37217CED3D000F10DE /* FileManager + MoviesApp.swift */; };
+		38B86C3A217CEE38000F10DE /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 38B86C39217CEE38000F10DE /* keys.plist */; };
+		38B86C3C217CF06F000F10DE /* MAConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C3B217CF06F000F10DE /* MAConstants.swift */; };
+		38B86C3E217CF237000F10DE /* MAEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C3D217CF237000F10DE /* MAEndpoint.swift */; };
+		38B86C40217CF5B0000F10DE /* UserDefaults + MoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C3F217CF5B0000F10DE /* UserDefaults + MoviesApp.swift */; };
+		38B86C42217D127D000F10DE /* MALoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C41217D127D000F10DE /* MALoadingViewController.swift */; };
+		38B86C44217D12E3000F10DE /* UIViewController + MoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C43217D12E3000F10DE /* UIViewController + MoviesApp.swift */; };
+		38B86C46217D1CD6000F10DE /* MANowPlayingMoviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C45217D1CD6000F10DE /* MANowPlayingMoviesModel.swift */; };
 		38C4B534217C25AC00657627 /* UICollectionViewCell + MoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C4B533217C25AC00657627 /* UICollectionViewCell + MoviesApp.swift */; };
 		38C4B538217C275900657627 /* MAMovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C4B537217C275900657627 /* MAMovieDetailViewController.swift */; };
 		38C4B53A217C38E100657627 /* UINavigationController + MoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C4B539217C38E100657627 /* UINavigationController + MoviesApp.swift */; };
@@ -55,6 +68,19 @@
 		38195A73217BA7DE0000E656 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38195A7A217BA8E70000E656 /* MAMoviesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMoviesListViewController.swift; sourceTree = "<group>"; };
 		38B86C23217C4C22000F10DE /* MAMovieDetailViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieDetailViewFactory.swift; sourceTree = "<group>"; };
+		38B86C26217C4DB3000F10DE /* MADetailMovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MADetailMovieModel.swift; sourceTree = "<group>"; };
+		38B86C29217C5668000F10DE /* MAMoviesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMoviesListService.swift; sourceTree = "<group>"; };
+		38B86C2C217C5B11000F10DE /* MAApiImagesConfigurationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAApiImagesConfigurationModel.swift; sourceTree = "<group>"; };
+		38B86C33217CE36B000F10DE /* MANetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANetworkClient.swift; sourceTree = "<group>"; };
+		38B86C35217CECFC000F10DE /* MAFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAFileManager.swift; sourceTree = "<group>"; };
+		38B86C37217CED3D000F10DE /* FileManager + MoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager + MoviesApp.swift"; sourceTree = "<group>"; };
+		38B86C39217CEE38000F10DE /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
+		38B86C3B217CF06F000F10DE /* MAConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAConstants.swift; sourceTree = "<group>"; };
+		38B86C3D217CF237000F10DE /* MAEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAEndpoint.swift; sourceTree = "<group>"; };
+		38B86C3F217CF5B0000F10DE /* UserDefaults + MoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + MoviesApp.swift"; sourceTree = "<group>"; };
+		38B86C41217D127D000F10DE /* MALoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoadingViewController.swift; sourceTree = "<group>"; };
+		38B86C43217D12E3000F10DE /* UIViewController + MoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + MoviesApp.swift"; sourceTree = "<group>"; };
+		38B86C45217D1CD6000F10DE /* MANowPlayingMoviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANowPlayingMoviesModel.swift; sourceTree = "<group>"; };
 		38C4B533217C25AC00657627 /* UICollectionViewCell + MoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + MoviesApp.swift"; sourceTree = "<group>"; };
 		38C4B537217C275900657627 /* MAMovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieDetailViewController.swift; sourceTree = "<group>"; };
 		38C4B539217C38E100657627 /* UINavigationController + MoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + MoviesApp.swift"; sourceTree = "<group>"; };
@@ -116,6 +142,7 @@
 			children = (
 				38195A3F217BA31E0000E656 /* AppDelegate.swift */,
 				38195A48217BA3200000E656 /* LaunchScreen.storyboard */,
+				38B86C32217CE354000F10DE /* Core */,
 				38195A76217BA7F30000E656 /* Features */,
 				38C4B532217C258400657627 /* Extensions */,
 				38195A6F217BA7DE0000E656 /* Supporting files */,
@@ -144,6 +171,7 @@
 		38195A6F217BA7DE0000E656 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				38B86C39217CEE38000F10DE /* keys.plist */,
 				38195A73217BA7DE0000E656 /* Info.plist */,
 				38195A70217BA7DE0000E656 /* Colors */,
 				38195A71217BA7DE0000E656 /* Assets */,
@@ -169,6 +197,7 @@
 		38195A76217BA7F30000E656 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				38B86C2B217C5AE4000F10DE /* Configuration */,
 				38C4B535217C271100657627 /* Movies detail */,
 				38195A77217BA8260000E656 /* List Movies */,
 			);
@@ -178,6 +207,7 @@
 		38195A77217BA8260000E656 /* List Movies */ = {
 			isa = PBXGroup;
 			children = (
+				38B86C28217C5651000F10DE /* Services */,
 				38F1D0B0217BB6B1001E70EE /* Presenters */,
 				38F1D0AF217BB6A4001E70EE /* Models */,
 				38F1D0AE217BB69D001E70EE /* Views */,
@@ -194,11 +224,66 @@
 			path = Factory;
 			sourceTree = "<group>";
 		};
+		38B86C25217C4D96000F10DE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				38B86C26217C4DB3000F10DE /* MADetailMovieModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		38B86C28217C5651000F10DE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				38B86C29217C5668000F10DE /* MAMoviesListService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		38B86C2B217C5AE4000F10DE /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				38B86C2F217C5D1D000F10DE /* Services */,
+				38B86C2E217C5D15000F10DE /* Models */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		38B86C2E217C5D15000F10DE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				38B86C2C217C5B11000F10DE /* MAApiImagesConfigurationModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		38B86C2F217C5D1D000F10DE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		38B86C32217CE354000F10DE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				38B86C33217CE36B000F10DE /* MANetworkClient.swift */,
+				38B86C35217CECFC000F10DE /* MAFileManager.swift */,
+				38B86C3B217CF06F000F10DE /* MAConstants.swift */,
+				38B86C3D217CF237000F10DE /* MAEndpoint.swift */,
+				38B86C41217D127D000F10DE /* MALoadingViewController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		38C4B532217C258400657627 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				38C4B533217C25AC00657627 /* UICollectionViewCell + MoviesApp.swift */,
 				38C4B539217C38E100657627 /* UINavigationController + MoviesApp.swift */,
+				38B86C37217CED3D000F10DE /* FileManager + MoviesApp.swift */,
+				38B86C3F217CF5B0000F10DE /* UserDefaults + MoviesApp.swift */,
+				38B86C43217D12E3000F10DE /* UIViewController + MoviesApp.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -206,6 +291,7 @@
 		38C4B535217C271100657627 /* Movies detail */ = {
 			isa = PBXGroup;
 			children = (
+				38B86C25217C4D96000F10DE /* Models */,
 				38B86C22217C4BF7000F10DE /* Factory */,
 				38C4B53B217C43E600657627 /* Views */,
 				38C4B536217C272800657627 /* View Controllers */,
@@ -248,6 +334,7 @@
 		38F1D0AF217BB6A4001E70EE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				38B86C45217D1CD6000F10DE /* MANowPlayingMoviesModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -384,6 +471,7 @@
 			files = (
 				38195A74217BA7DE0000E656 /* Assets.xcassets in Resources */,
 				38195A4A217BA3200000E656 /* LaunchScreen.storyboard in Resources */,
+				38B86C3A217CEE38000F10DE /* keys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,8 +548,20 @@
 				38195A7B217BA8E70000E656 /* MAMoviesListViewController.swift in Sources */,
 				38C4B538217C275900657627 /* MAMovieDetailViewController.swift in Sources */,
 				38C4B53A217C38E100657627 /* UINavigationController + MoviesApp.swift in Sources */,
+				38B86C42217D127D000F10DE /* MALoadingViewController.swift in Sources */,
+				38B86C36217CECFC000F10DE /* MAFileManager.swift in Sources */,
+				38B86C3E217CF237000F10DE /* MAEndpoint.swift in Sources */,
 				38C4B534217C25AC00657627 /* UICollectionViewCell + MoviesApp.swift in Sources */,
+				38B86C34217CE36B000F10DE /* MANetworkClient.swift in Sources */,
+				38B86C2A217C5668000F10DE /* MAMoviesListService.swift in Sources */,
+				38B86C3C217CF06F000F10DE /* MAConstants.swift in Sources */,
+				38B86C46217D1CD6000F10DE /* MANowPlayingMoviesModel.swift in Sources */,
+				38B86C27217C4DB3000F10DE /* MADetailMovieModel.swift in Sources */,
+				38B86C40217CF5B0000F10DE /* UserDefaults + MoviesApp.swift in Sources */,
+				38B86C44217D12E3000F10DE /* UIViewController + MoviesApp.swift in Sources */,
 				38F1D0B2217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift in Sources */,
+				38B86C2D217C5B11000F10DE /* MAApiImagesConfigurationModel.swift in Sources */,
+				38B86C38217CED3D000F10DE /* FileManager + MoviesApp.swift in Sources */,
 				38B86C24217C4C22000F10DE /* MAMovieDetailViewFactory.swift in Sources */,
 				38C4B53D217C440B00657627 /* MAMovieDetailView.swift in Sources */,
 				38195A40217BA31E0000E656 /* AppDelegate.swift in Sources */,
