@@ -10,7 +10,6 @@
 		38195A40217BA31E0000E656 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A3F217BA31E0000E656 /* AppDelegate.swift */; };
 		38195A4A217BA3200000E656 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38195A48217BA3200000E656 /* LaunchScreen.storyboard */; };
 		38195A55217BA3200000E656 /* MoviesAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A54217BA3200000E656 /* MoviesAppTests.swift */; };
-		38195A60217BA3200000E656 /* MoviesAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A5F217BA3200000E656 /* MoviesAppUITests.swift */; };
 		38195A74217BA7DE0000E656 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38195A72217BA7DE0000E656 /* Assets.xcassets */; };
 		38195A7B217BA8E70000E656 /* MAMoviesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A7A217BA8E70000E656 /* MAMoviesListViewController.swift */; };
 		38B86C24217C4C22000F10DE /* MAMovieDetailViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C23217C4C22000F10DE /* MAMovieDetailViewFactory.swift */; };
@@ -66,7 +65,6 @@
 		38195A54217BA3200000E656 /* MoviesAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAppTests.swift; sourceTree = "<group>"; };
 		38195A56217BA3200000E656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38195A5B217BA3200000E656 /* MoviesAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		38195A5F217BA3200000E656 /* MoviesAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAppUITests.swift; sourceTree = "<group>"; };
 		38195A61217BA3200000E656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38195A72217BA7DE0000E656 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38195A73217BA7DE0000E656 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 		38195A5E217BA3200000E656 /* MoviesAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				38195A5F217BA3200000E656 /* MoviesAppUITests.swift */,
 				38195A61217BA3200000E656 /* Info.plist */,
 				38E78694217DE8CE0058AFA2 /* MAMoviesListUITests.swift */,
 			);
@@ -605,7 +602,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				38E78695217DE8CE0058AFA2 /* MAMoviesListUITests.swift in Sources */,
-				38195A60217BA3200000E656 /* MoviesAppUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
