@@ -36,6 +36,7 @@
 		38C4B53A217C38E100657627 /* UINavigationController + MoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C4B539217C38E100657627 /* UINavigationController + MoviesApp.swift */; };
 		38C4B53D217C440B00657627 /* MAMovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C4B53C217C440B00657627 /* MAMovieDetailView.swift */; };
 		38E78693217DE39D0058AFA2 /* MAConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E78692217DE39D0058AFA2 /* MAConfiguration.swift */; };
+		38E78695217DE8CE0058AFA2 /* MAMoviesListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E78694217DE8CE0058AFA2 /* MAMoviesListUITests.swift */; };
 		38F1D0B2217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F1D0B1217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -92,6 +93,7 @@
 		38C4B539217C38E100657627 /* UINavigationController + MoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + MoviesApp.swift"; sourceTree = "<group>"; };
 		38C4B53C217C440B00657627 /* MAMovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieDetailView.swift; sourceTree = "<group>"; };
 		38E78692217DE39D0058AFA2 /* MAConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAConfiguration.swift; sourceTree = "<group>"; };
+		38E78694217DE8CE0058AFA2 /* MAMoviesListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMoviesListUITests.swift; sourceTree = "<group>"; };
 		38F1D0B1217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieListCellCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,6 +169,7 @@
 			children = (
 				38195A5F217BA3200000E656 /* MoviesAppUITests.swift */,
 				38195A61217BA3200000E656 /* Info.plist */,
+				38E78694217DE8CE0058AFA2 /* MAMoviesListUITests.swift */,
 			);
 			path = MoviesAppUITests;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38E78695217DE8CE0058AFA2 /* MAMoviesListUITests.swift in Sources */,
 				38195A60217BA3200000E656 /* MoviesAppUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
