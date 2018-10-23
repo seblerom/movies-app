@@ -64,7 +64,10 @@ class MAMoviesListViewController: UIViewController {
     }
     
     @objc func pullToRefresh()  {
-        presenter.pullToRefresh()
+        if !presenter.isFetchInProgress{
+            print("pull")
+            presenter.pullToRefresh()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,6 +165,12 @@ extension MAMoviesListViewController : UIScrollViewDelegate {
         searchController.searchBar.resignFirstResponder()
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 10, refresher.isRefreshing{
+            refresher.endRefreshing()
+        }
+    }
+    
 }
 
 //MARK: - UISearchResultsUpdating
@@ -220,13 +229,11 @@ extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     
     func loadMoviesSucces() {
         collectionView.reloadData()
-        refresher.endRefreshing()
     }
     
     func loadMoviesError(_ description: String) {
         MAAlert.show(on: self, message: description)
         loadingController.remove()
-        refresher.endRefreshing()
     }
     
     

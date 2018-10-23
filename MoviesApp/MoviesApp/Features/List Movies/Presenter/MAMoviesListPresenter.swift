@@ -27,7 +27,7 @@ class MAMoviesListPresenter {
     private var moviesResult = [MANowPlayingMoviesResultModel]()
     var configuration : MAApiImagesConfigurationModel?
     internal var filteredMoviesModel : MANowPlayingMoviesModel?
-    private var isFetchInProgress = false
+    internal var isFetchInProgress = false
     var searchController:UISearchController?
     let posterAspectRatio : CGFloat = 9/16
     var hasReachedEnd = false
