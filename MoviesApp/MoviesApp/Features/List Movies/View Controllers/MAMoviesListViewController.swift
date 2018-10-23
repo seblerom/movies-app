@@ -197,7 +197,7 @@ extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     }
     
     func loadFilteredMoviesError(_ description: String) {
-        //TODO: Show error message
+        MAAlert.show(on: self, message: description)
     }
     
     func addLoadingController() {
@@ -214,7 +214,7 @@ extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     }
     
     func loadConfigurationError() {
-        //TODO: Show error message
+        MAAlert.show(on: self, message: "Configuration error")
     }
     
     
@@ -224,7 +224,7 @@ extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     }
     
     func loadMoviesError(_ description: String) {
-        //TODO: Show error message
+        MAAlert.show(on: self, message: description)
         loadingController.remove()
         refresher.endRefreshing()
     }

@@ -36,6 +36,7 @@
 		38C4B53D217C440B00657627 /* MAMovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C4B53C217C440B00657627 /* MAMovieDetailView.swift */; };
 		38E78693217DE39D0058AFA2 /* MAConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E78692217DE39D0058AFA2 /* MAConfiguration.swift */; };
 		38E78695217DE8CE0058AFA2 /* MAMoviesListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E78694217DE8CE0058AFA2 /* MAMoviesListUITests.swift */; };
+		38EDA594217EBD1700C8381A /* MAErrorAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EDA593217EBD1700C8381A /* MAErrorAlerts.swift */; };
 		38F1D0B2217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F1D0B1217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift */; };
 		46ACEA24217E5C9800E3B638 /* MAMoviesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46ACEA23217E5C9800E3B638 /* MAMoviesListPresenter.swift */; };
 /* End PBXBuildFile section */
@@ -93,6 +94,7 @@
 		38C4B53C217C440B00657627 /* MAMovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieDetailView.swift; sourceTree = "<group>"; };
 		38E78692217DE39D0058AFA2 /* MAConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAConfiguration.swift; sourceTree = "<group>"; };
 		38E78694217DE8CE0058AFA2 /* MAMoviesListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMoviesListUITests.swift; sourceTree = "<group>"; };
+		38EDA593217EBD1700C8381A /* MAErrorAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAErrorAlerts.swift; sourceTree = "<group>"; };
 		38F1D0B1217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieListCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		46ACEA23217E5C9800E3B638 /* MAMoviesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMoviesListPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -289,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				38B86C4D217D5784000F10DE /* MAMovieImage.swift */,
+				38EDA593217EBD1700C8381A /* MAErrorAlerts.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				38C4B538217C275900657627 /* MAMovieDetailViewController.swift in Sources */,
 				38C4B53A217C38E100657627 /* UINavigationController + MoviesApp.swift in Sources */,
 				38B86C42217D127D000F10DE /* MALoadingViewController.swift in Sources */,
+				38EDA594217EBD1700C8381A /* MAErrorAlerts.swift in Sources */,
 				38B86C36217CECFC000F10DE /* MAFileManager.swift in Sources */,
 				38B86C3E217CF237000F10DE /* MAEndpoint.swift in Sources */,
 				38B86C5B217D6770000F10DE /* MASearchEndpoint.swift in Sources */,
