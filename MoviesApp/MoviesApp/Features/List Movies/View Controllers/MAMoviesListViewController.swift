@@ -42,7 +42,7 @@ class MAMoviesListViewController: UIViewController {
        return MALoadingViewController()
     }()
     
-    private lazy var presenter = MAMoviesListPresenter(delegate: self)
+    internal lazy var presenter = MAMoviesListPresenter(delegate: self)
     
     override func loadView() {
         super.loadView()

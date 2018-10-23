@@ -23,10 +23,10 @@ protocol MAMoviesListPresenterDelegate {
 class MAMoviesListPresenter {
     
     let delegate : MAMoviesListPresenterDelegate
-    private var moviesModel : MANowPlayingMoviesModel?
+    internal var moviesModel : MANowPlayingMoviesModel?
     private var moviesResult = [MANowPlayingMoviesResultModel]()
     var configuration : MAApiImagesConfigurationModel?
-    private var filteredMoviesModel : MANowPlayingMoviesModel?
+    internal var filteredMoviesModel : MANowPlayingMoviesModel?
     private var isFetchInProgress = false
     var searchController:UISearchController?
     let posterAspectRatio : CGFloat = 9/16

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		38195A40217BA31E0000E656 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A3F217BA31E0000E656 /* AppDelegate.swift */; };
 		38195A4A217BA3200000E656 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38195A48217BA3200000E656 /* LaunchScreen.storyboard */; };
-		38195A55217BA3200000E656 /* MoviesAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A54217BA3200000E656 /* MoviesAppTests.swift */; };
 		38195A74217BA7DE0000E656 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38195A72217BA7DE0000E656 /* Assets.xcassets */; };
 		38195A7B217BA8E70000E656 /* MAMoviesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A7A217BA8E70000E656 /* MAMoviesListViewController.swift */; };
 		38B86C24217C4C22000F10DE /* MAMovieDetailViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C23217C4C22000F10DE /* MAMovieDetailViewFactory.swift */; };
@@ -37,6 +36,7 @@
 		38E78693217DE39D0058AFA2 /* MAConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E78692217DE39D0058AFA2 /* MAConfiguration.swift */; };
 		38E78695217DE8CE0058AFA2 /* MAMoviesListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E78694217DE8CE0058AFA2 /* MAMoviesListUITests.swift */; };
 		38EDA594217EBD1700C8381A /* MAErrorAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EDA593217EBD1700C8381A /* MAErrorAlerts.swift */; };
+		38EDA596217EC5CB00C8381A /* MANetworkClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EDA595217EC5CB00C8381A /* MANetworkClientTest.swift */; };
 		38F1D0B2217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F1D0B1217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift */; };
 		46ACEA24217E5C9800E3B638 /* MAMoviesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46ACEA23217E5C9800E3B638 /* MAMoviesListPresenter.swift */; };
 /* End PBXBuildFile section */
@@ -63,7 +63,6 @@
 		38195A3F217BA31E0000E656 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38195A49217BA3200000E656 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		38195A50217BA3200000E656 /* MoviesAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		38195A54217BA3200000E656 /* MoviesAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAppTests.swift; sourceTree = "<group>"; };
 		38195A56217BA3200000E656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38195A5B217BA3200000E656 /* MoviesAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38195A61217BA3200000E656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -95,6 +94,7 @@
 		38E78692217DE39D0058AFA2 /* MAConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAConfiguration.swift; sourceTree = "<group>"; };
 		38E78694217DE8CE0058AFA2 /* MAMoviesListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMoviesListUITests.swift; sourceTree = "<group>"; };
 		38EDA593217EBD1700C8381A /* MAErrorAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAErrorAlerts.swift; sourceTree = "<group>"; };
+		38EDA595217EC5CB00C8381A /* MANetworkClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MANetworkClientTest.swift; sourceTree = "<group>"; };
 		38F1D0B1217BB71B001E70EE /* MAMovieListCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieListCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		46ACEA23217E5C9800E3B638 /* MAMoviesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMoviesListPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,8 +160,8 @@
 		38195A53217BA3200000E656 /* MoviesAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				38195A54217BA3200000E656 /* MoviesAppTests.swift */,
 				38195A56217BA3200000E656 /* Info.plist */,
+				38EDA595217EC5CB00C8381A /* MANetworkClientTest.swift */,
 			);
 			path = MoviesAppTests;
 			sourceTree = "<group>";
@@ -597,7 +597,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38195A55217BA3200000E656 /* MoviesAppTests.swift in Sources */,
+				38EDA596217EC5CB00C8381A /* MANetworkClientTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
