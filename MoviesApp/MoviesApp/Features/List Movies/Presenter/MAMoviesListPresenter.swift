@@ -24,10 +24,16 @@ class MAMoviesListPresenter {
     
     let delegate : MAMoviesListPresenterDelegate
     private var moviesModel : MANowPlayingMoviesModel?
+    private var moviesResult = [MANowPlayingMoviesResultModel]()
     var configuration : MAApiImagesConfigurationModel?
     private var filteredMoviesModel : MANowPlayingMoviesModel?
+    private var isFetchInProgress = false
     var searchController:UISearchController?
     let posterAspectRatio : CGFloat = 9/16
+    var hasReachedEnd = false
+    
+    private var page = 1
+    private var totalPages = 0
     
     init(delegate:MAMoviesListPresenterDelegate) {
         self.delegate = delegate
@@ -39,11 +45,15 @@ class MAMoviesListPresenter {
         return CGSize(width: half, height: height)
     }
     
+    var currentCount: Int {
+        return moviesResult.count
+    }
+    
     func numberOfItems() -> Int {
         if isFiltering() {
             return  filteredMoviesModel?.results.count ?? 0
         }
-        return moviesModel?.results.count ?? 0
+        return moviesResult.count
     }
     
     func isFiltering() -> Bool {
@@ -59,7 +69,7 @@ class MAMoviesListPresenter {
     }
     
     func movie(at index:Int) -> MANowPlayingMoviesResultModel? {
-        return self.moviesModel?.results[index]
+        return moviesResult[index]
     }
     
     func modelForItem(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> MANowPlayingMoviesResultModel? {
@@ -92,16 +102,43 @@ class MAMoviesListPresenter {
 //MARK: - Network request
 extension MAMoviesListPresenter {
     
+    func pullToRefresh()  {
+        moviesResult = [MANowPlayingMoviesResultModel]()
+        page = 1
+        totalPages = 0
+        hasReachedEnd = false
+        loadMovies()
+    }
+    
     func loadMovies() {
+        
+        guard !isFetchInProgress && !hasReachedEnd else {
+            return
+        }
+        
+        isFetchInProgress = true
+        
         let networkClient = MANetworkClientDecodable<MANowPlayingMoviesModel>()
-        networkClient.execute(.nowPlaying()) { (result) in
+        networkClient.execute(.nowPlaying(self.page)) { (result) in
             switch result{
             case .failure(let error):
                 self.delegate.loadMoviesError(error.reason)
+                self.isFetchInProgress = false
             case .success(let response):
+                self.isFetchInProgress = false
                 self.moviesModel = response as? MANowPlayingMoviesModel
+                self.movies(moviesModel: response as! MANowPlayingMoviesModel)
                 self.delegate.loadMoviesSucces()
             }
+        }
+    }
+    
+    private func movies(moviesModel:MANowPlayingMoviesModel) {
+        moviesResult.append(contentsOf: moviesModel.results)
+        page += 1
+        totalPages = moviesModel.totalPages
+        if totalPages == page{
+            hasReachedEnd = true
         }
     }
     

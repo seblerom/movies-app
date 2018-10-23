@@ -31,8 +31,10 @@ class MAMoviesListViewController: UIViewController {
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.delegate = self
         collection.dataSource = self
+        collection.prefetchDataSource = self
         collection.backgroundColor = .black
         collection.keyboardDismissMode = .onDrag
+        collection.alwaysBounceVertical = true
         return collection
     }()
     
@@ -48,10 +50,21 @@ class MAMoviesListViewController: UIViewController {
         collectionView.register(MAMovieListCellCollectionViewCell.self, forCellWithReuseIdentifier: MAMovieListCellCollectionViewCell.cellId)
     }
     
+    lazy var refresher:UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.tintColor = .white
+        refresh.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+        return refresh
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewSetup()
         presenter.loadConfiguration()
+    }
+    
+    @objc func pullToRefresh()  {
+        presenter.pullToRefresh()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +97,9 @@ extension MAMoviesListViewController : MASetupable {
         title = "Movies"
         addCollectionViewConstraints()
         searchController.searchBar.placeholder = "Search Movies"
+        collectionView.refreshControl = self.refresher
     }
+
 }
 
 //MARK: - UICollectionViewDataSource
@@ -126,6 +141,18 @@ extension MAMoviesListViewController : UICollectionViewDelegate, UICollectionVie
         presenter.didSelect(collectionView, indexPath)
     }
     
+}
+
+//MAR: - UICollectionViewDataSourcePrefetching
+extension MAMoviesListViewController : UICollectionViewDataSourcePrefetching {
+    
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+
+        if indexPaths.last!.row >= presenter.currentCount - 1 {
+            presenter.loadMovies()
+        }
+    }
+
 }
 
 //MARK: - UIScrollViewDelegate
@@ -193,11 +220,13 @@ extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     
     func loadMoviesSucces() {
         collectionView.reloadData()
+        refresher.endRefreshing()
     }
     
     func loadMoviesError(_ description: String) {
         //TODO: Show error message
         loadingController.remove()
+        refresher.endRefreshing()
     }
     
     
