@@ -12,7 +12,7 @@ import UIKit
 extension UICollectionViewCell {
     
     static internal var cellId: String {
-        return String(describing: self.self)
+        return String(describing: self)
     }
     
 }
