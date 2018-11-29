@@ -42,7 +42,7 @@ class MAMoviesListPresenter {
     func imageSize(width:CGFloat) -> CGSize {
         let half = width / 2
         let height = half / posterAspectRatio
-        return CGSize(width: half, height: height)
+        return CGSize(width: half,height: height)
     }
     
     var currentCount: Int {
@@ -72,15 +72,17 @@ class MAMoviesListPresenter {
         return moviesResult[index]
     }
     
-    func modelForItem(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> MANowPlayingMoviesResultModel? {
+    func modelForItem(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> MANowPlayingMoviesResultModel? {
         
         var model : MANowPlayingMoviesResultModel?
         
         if isFiltering(){
-            guard let filteredMoviesModel = filtered(at: indexPath.row) else { return model }
+            guard let filteredMoviesModel = filtered(at: indexPath.row)
+            else { return model }
             model = filteredMoviesModel
         }else {
-            guard let moviesModel = movie(at: indexPath.row) else { return model }
+            guard let moviesModel = movie(at: indexPath.row)
+            else { return model }
             model = moviesModel
         }
 
@@ -89,9 +91,15 @@ class MAMoviesListPresenter {
     
     func didSelect(_ collectionView:UICollectionView,_ indexPath:IndexPath) {
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? MAMovieListCellCollectionViewCell, let resultModel = cell.resultModel,let configuration = cell.configuration else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MAMovieListCellCollectionViewCell,
+              let resultModel = cell.resultModel,
+              let configuration = cell.configuration
+        else { return }
         
-        let model = MADetailMovieModel(path:resultModel.backDropPath,title:resultModel.title,plot:resultModel.overview,configuration:configuration)
+        let model = MADetailMovieModel(path:resultModel.backDropPath,
+                                       title:resultModel.title,
+                                       plot:resultModel.overview,
+                                       configuration:configuration)
         
         self.delegate.willTransition(with: model)
 

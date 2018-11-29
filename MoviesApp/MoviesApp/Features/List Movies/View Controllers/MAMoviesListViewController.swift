@@ -11,6 +11,18 @@ import UIKit
 class MAMoviesListViewController: UIViewController {
 
     
+    lazy var refresher:UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.tintColor = .white
+        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh",
+                                                     attributes: [NSAttributedStringKey.foregroundColor:UIColor.white]
+                                                    )
+        refresh.addTarget(self,
+                          action: #selector(pullToRefresh(_:)),
+                          for: .valueChanged)
+        return refresh
+    }()
+    
     lazy var searchController :UISearchController = {
        let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
@@ -27,7 +39,8 @@ class MAMoviesListViewController: UIViewController {
     
     lazy var collectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        let collection = UICollectionView(frame: CGRect.zero,
+                                          collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.delegate = self
         collection.dataSource = self
@@ -47,32 +60,44 @@ class MAMoviesListViewController: UIViewController {
     override func loadView() {
         super.loadView()
         presenter.searchController = self.searchController
-        collectionView.register(MAMovieListCellCollectionViewCell.self, forCellWithReuseIdentifier: MAMovieListCellCollectionViewCell.cellId)
+        collectionView.register(MAMovieListCellCollectionViewCell.self,
+                                forCellWithReuseIdentifier: MAMovieListCellCollectionViewCell.cellId)
+        collectionView.alwaysBounceVertical = true
     }
-    
-    lazy var refresher:UIRefreshControl = {
-        let refresh = UIRefreshControl()
-        refresh.tintColor = .white
-        refresh.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
-        return refresh
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewSetup()
         presenter.loadConfiguration()
     }
-    
-    @objc func pullToRefresh()  {
-        if !presenter.isFetchInProgress{
-            print("pull")
-            presenter.pullToRefresh()
-        }
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setCustomStyle(.large)
+    }
+    
+}
+
+//MARK: - Pull to refresh
+private extension MAMoviesListViewController {
+    @objc func pullToRefresh(_ sender: UIRefreshControl)  {
+        if !presenter.isFetchInProgress{
+            print("pull")
+            presenter.pullToRefresh()
+            sender.endRefreshing()
+        }
+    }
+}
+
+//MARK: - MASetupable
+extension MAMoviesListViewController : MASetupable {
+    
+    func viewSetup() {
+        view.backgroundColor = .black
+        title = "Movies"
+        addCollectionViewConstraints()
+        searchController.searchBar.placeholder = "Search Movies"
+        collectionView.refreshControl = refresher
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -86,21 +111,7 @@ class MAMoviesListViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-    
-
-}
-
-//MARK: - MASetupable
-extension MAMoviesListViewController : MASetupable {
-    
-    func viewSetup() {
-        view.backgroundColor = .black
-        title = "Movies"
-        addCollectionViewConstraints()
-        searchController.searchBar.placeholder = "Search Movies"
-        collectionView.refreshControl = self.refresher
+            ])
     }
 
 }
@@ -108,17 +119,20 @@ extension MAMoviesListViewController : MASetupable {
 //MARK: - UICollectionViewDataSource
 extension MAMoviesListViewController : UICollectionViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfItems()
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MAMovieListCellCollectionViewCell.cellId, for: indexPath) as! MAMovieListCellCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MAMovieListCellCollectionViewCell.cellId,
+                                                      for: indexPath) as! MAMovieListCellCollectionViewCell
         
-        guard let model = presenter.modelForItem(collectionView, cellForItemAt: indexPath), let configuration = presenter.configuration else { return cell }
+        guard let model = presenter.modelForItem(collectionView,
+                                                 cellForItemAt: indexPath),
+        let configuration = presenter.configuration else { return cell }
         
-        cell.configure(model, configuration)
+        cell.configure(model,configuration)
         
         return cell
 
@@ -126,22 +140,22 @@ extension MAMoviesListViewController : UICollectionViewDataSource {
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
-extension MAMoviesListViewController : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension MAMoviesListViewController : UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
         return presenter.imageSize(width: collectionView.bounds.width)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.didSelect(collectionView, indexPath)
+    func collectionView(_ collectionView: UICollectionView,didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelect(collectionView,indexPath)
     }
     
 }
@@ -149,8 +163,7 @@ extension MAMoviesListViewController : UICollectionViewDelegate, UICollectionVie
 //MAR: - UICollectionViewDataSourcePrefetching
 extension MAMoviesListViewController : UICollectionViewDataSourcePrefetching {
     
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-
+    func collectionView(_ collectionView: UICollectionView,prefetchItemsAt indexPaths: [IndexPath]) {
         if indexPaths.last!.row >= presenter.currentCount - 1 {
             presenter.loadMovies()
         }
@@ -163,12 +176,6 @@ extension MAMoviesListViewController : UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchController.searchBar.resignFirstResponder()
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 10, refresher.isRefreshing{
-            refresher.endRefreshing()
-        }
     }
     
 }
@@ -187,6 +194,7 @@ extension MAMoviesListViewController : UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         collectionView.reloadData()
+        collectionView.scrollToItem(at: IndexPath(item: 0,section: 0),at: .top,animated: true)
     }
     
 }
@@ -196,8 +204,8 @@ extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     
     func willTransition(with model: MADetailMovieModel) {
         let viewController = MAMovieDetailViewController(model: model)
-        navigationController?.pushViewController(viewController, animated: true)
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationController?.pushViewController(viewController,animated: true)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain,target: self,action: nil)
     }
     
     
@@ -206,7 +214,7 @@ extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     }
     
     func loadFilteredMoviesError(_ description: String) {
-        MAAlert.show(on: self, message: description)
+        MAAlert.show(on: self,message: description)
     }
     
     func addLoadingController() {
@@ -223,7 +231,7 @@ extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     }
     
     func loadConfigurationError() {
-        MAAlert.show(on: self, message: "Configuration error")
+        MAAlert.show(on: self,message: "Configuration error")
     }
     
     
@@ -232,7 +240,7 @@ extension MAMoviesListViewController : MAMoviesListPresenterDelegate {
     }
     
     func loadMoviesError(_ description: String) {
-        MAAlert.show(on: self, message: description)
+        MAAlert.show(on: self,message: description)
         loadingController.remove()
     }
     

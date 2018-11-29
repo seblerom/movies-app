@@ -16,7 +16,7 @@ struct MANowPlayingMoviesModel : Codable {
     let totalPages : Int
     let results : [MANowPlayingMoviesResultModel]
     
-    enum CodingKeys : String, CodingKey {
+    enum CodingKeys : String,CodingKey {
         case page,dates,results
         case totalResults = "total_results"
         case totalPages = "total_pages"
@@ -39,7 +39,7 @@ struct MANowPlayingMoviesResultModel : Codable {
     let overview : String
     let releaseDate : String
     
-    enum CodingKeys : String, CodingKey {
+    enum CodingKeys : String,CodingKey {
         
         case id,video,title,adult,overview
         case voteCount = "vote_count"

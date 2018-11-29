@@ -32,7 +32,7 @@ class MAMovieDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.semibold)
+        label.font = UIFont.systemFont(ofSize: 18,weight: UIFont.Weight.semibold)
         label.lineBreakMode = .byWordWrapping
         return label
     }()
@@ -42,7 +42,7 @@ class MAMovieDetailView: UIView {
         plot.translatesAutoresizingMaskIntoConstraints = false
         plot.numberOfLines = 0
         plot.textColor = .white
-        plot.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.light)
+        plot.font = UIFont.systemFont(ofSize: 15,weight: UIFont.Weight.light)
         plot.lineBreakMode = .byWordWrapping
         plot.textAlignment = .justified
         return plot
@@ -51,6 +51,7 @@ class MAMovieDetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        setConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,11 +63,9 @@ class MAMovieDetailView: UIView {
         scrollView.addSubview(backDropImage)
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(plotOverViewLabel)
-        
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
+    fileprivate func setConstraints() {
         setScrollViewConstraints()
         setImageConstraints()
         setTitleConstraints()
@@ -93,7 +92,7 @@ class MAMovieDetailView: UIView {
             backDropImage.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             backDropImage.widthAnchor.constraint(equalTo: widthAnchor),
             backDropImage.bottomAnchor.constraint(equalTo: titleLabel.topAnchor,constant:-16),
-            backDropImage.heightAnchor.constraint(equalToConstant: bounds.width / backDropAspectRatio)
+            backDropImage.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / backDropAspectRatio)
             ])
     }
     

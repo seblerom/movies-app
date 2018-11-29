@@ -9,7 +9,8 @@
 import Foundation
 
 protocol MAConfigurable {
-    func configure(_ resultModel: MANowPlayingMoviesResultModel,_ configuration:MAApiImagesConfigurationModel)
+    func configure(_ resultModel: MANowPlayingMoviesResultModel,
+                   _ configuration:MAApiImagesConfigurationModel)
 }
 
 

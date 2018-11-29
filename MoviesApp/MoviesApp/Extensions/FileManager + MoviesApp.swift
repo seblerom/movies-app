@@ -11,7 +11,10 @@ import Foundation
 extension FileManager{
     
     var cacheDirectoryURL : URL {
-        return try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        return try! FileManager.default.url(for: .cachesDirectory,
+                                            in: .userDomainMask,
+                                            appropriateFor: nil,
+                                            create: false)
     }
     
 }

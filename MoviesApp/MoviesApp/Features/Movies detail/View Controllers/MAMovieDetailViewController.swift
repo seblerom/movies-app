@@ -10,22 +10,24 @@ import UIKit
 
 class MAMovieDetailViewController: UIViewController {
     
-    let model : MADetailMovieModel
+    //Variables
+    lazy var presenter = MAMovieDetailPresenter(delegate: self)
     
     init(model : MADetailMovieModel) {
-        self.model = model
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: nil,bundle: nil)
+        presenter.model = model
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Movie Details"
         view.backgroundColor = .black
-        setViewConstraints()
+        viewSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,39 +35,41 @@ class MAMovieDetailViewController: UIViewController {
         navigationController?.setCustomStyle()
     }
     
+}
+
+//MARK: - MASetupable
+extension MAMovieDetailViewController : MASetupable {
+    
+    func viewSetup() {
+        presenter.prepareDetailView()
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
     
-    private func setViewConstraints() {
+    private func setConstraints(for detailView:MAMovieDetailView) {
         
-        let factory = MAMovieDetailViewFactory()
-        let detailView = factory.makeDetailView(model: model) 
-
         view.addSubview(detailView)
         
         NSLayoutConstraint.activate([
-                detailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                detailView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                detailView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-                detailView.widthAnchor.constraint(equalTo: view.widthAnchor),
-                ])
-            let detailViewBottomConstraint = detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            detailViewBottomConstraint.priority = UILayoutPriority(rawValue: 250)
-            detailViewBottomConstraint.isActive = true
-        
-        guard let path = model.path else { return }
-        
-        detailView.backDropImage.loadImage(imageSize(), path)
+            detailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            detailView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            detailView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            detailView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            ])
+        let detailViewBottomConstraint = detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        detailViewBottomConstraint.priority = UILayoutPriority(rawValue: 250)
+        detailViewBottomConstraint.isActive = true
     }
-    
-    private func imageSize() -> String {
-        
-        let size = model.configuration.images.backdropSizes.filter({ $0 == MAConstants.BackdropSize.w1280.rawValue })
-        
-        return size.first ?? MAConstants.BackdropSize.original.rawValue
-    }
-    
     
 }
 
+//MARK: - MAMovieDetailPresenterDelegate
+extension MAMovieDetailViewController : MAMovieDetailPresenterDelegate {
+    
+    func didCreateDetailView(_ view: MAMovieDetailView) {
+        setConstraints(for: view)
+        view.backDropImage.loadImage(presenter.imageSize(),presenter.path())
+    }
+}

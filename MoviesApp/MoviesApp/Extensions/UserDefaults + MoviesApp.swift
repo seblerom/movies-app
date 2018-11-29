@@ -11,7 +11,7 @@ import Foundation
 extension UserDefaults {
     
     func save(_ date:Date) {
-        set(date, forKey: MAConstants.UserDefaults.dateKey)
+        set(date,forKey: MAConstants.UserDefaults.dateKey)
         synchronize()
     }
     

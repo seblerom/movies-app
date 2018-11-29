@@ -11,6 +11,7 @@
 		38195A4A217BA3200000E656 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38195A48217BA3200000E656 /* LaunchScreen.storyboard */; };
 		38195A74217BA7DE0000E656 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38195A72217BA7DE0000E656 /* Assets.xcassets */; };
 		38195A7B217BA8E70000E656 /* MAMoviesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195A7A217BA8E70000E656 /* MAMoviesListViewController.swift */; };
+		3830449621B08A4700D708F0 /* MAMovieDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3830449521B08A4700D708F0 /* MAMovieDetailPresenter.swift */; };
 		38B86C24217C4C22000F10DE /* MAMovieDetailViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C23217C4C22000F10DE /* MAMovieDetailViewFactory.swift */; };
 		38B86C27217C4DB3000F10DE /* MADetailMovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C26217C4DB3000F10DE /* MADetailMovieModel.swift */; };
 		38B86C2D217C5B11000F10DE /* MAApiImagesConfigurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B86C2C217C5B11000F10DE /* MAApiImagesConfigurationModel.swift */; };
@@ -69,6 +70,7 @@
 		38195A72217BA7DE0000E656 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38195A73217BA7DE0000E656 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38195A7A217BA8E70000E656 /* MAMoviesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMoviesListViewController.swift; sourceTree = "<group>"; };
+		3830449521B08A4700D708F0 /* MAMovieDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieDetailPresenter.swift; sourceTree = "<group>"; };
 		38B86C23217C4C22000F10DE /* MAMovieDetailViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAMovieDetailViewFactory.swift; sourceTree = "<group>"; };
 		38B86C26217C4DB3000F10DE /* MADetailMovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MADetailMovieModel.swift; sourceTree = "<group>"; };
 		38B86C2C217C5B11000F10DE /* MAApiImagesConfigurationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAApiImagesConfigurationModel.swift; sourceTree = "<group>"; };
@@ -180,17 +182,9 @@
 			children = (
 				38B86C39217CEE38000F10DE /* keys.plist */,
 				38195A73217BA7DE0000E656 /* Info.plist */,
-				38195A70217BA7DE0000E656 /* Colors */,
 				38195A71217BA7DE0000E656 /* Assets */,
 			);
 			path = "Supporting files";
-			sourceTree = "<group>";
-		};
-		38195A70217BA7DE0000E656 /* Colors */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Colors;
 			sourceTree = "<group>";
 		};
 		38195A71217BA7DE0000E656 /* Assets */ = {
@@ -204,10 +198,10 @@
 		38195A76217BA7F30000E656 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				38B86C58217D6758000F10DE /* Search */,
 				38B86C2B217C5AE4000F10DE /* Configuration */,
-				38C4B535217C271100657627 /* Movies detail */,
 				38195A77217BA8260000E656 /* List Movies */,
+				38C4B535217C271100657627 /* Movies detail */,
+				38B86C58217D6758000F10DE /* Search */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -215,13 +209,21 @@
 		38195A77217BA8260000E656 /* List Movies */ = {
 			isa = PBXGroup;
 			children = (
-				46ACEA22217E5C7900E3B638 /* Presenter */,
 				38B86C55217D6277000F10DE /* Endpoint */,
 				38F1D0AF217BB6A4001E70EE /* Models */,
-				38F1D0AE217BB69D001E70EE /* Views */,
+				46ACEA22217E5C7900E3B638 /* Presenter */,
 				38F1D0AD217BB680001E70EE /* View Controllers */,
+				38F1D0AE217BB69D001E70EE /* Views */,
 			);
 			path = "List Movies";
+			sourceTree = "<group>";
+		};
+		3830449421B08A2300D708F0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				3830449521B08A4700D708F0 /* MAMovieDetailPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		38B86C22217C4BF7000F10DE /* Factory */ = {
@@ -243,8 +245,8 @@
 		38B86C2B217C5AE4000F10DE /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				38E78691217DE3880058AFA2 /* Logic */,
 				38B86C2F217C5D1D000F10DE /* Endpoint */,
+				38E78691217DE3880058AFA2 /* Logic */,
 				38B86C2E217C5D15000F10DE /* Models */,
 			);
 			path = Configuration;
@@ -269,12 +271,12 @@
 		38B86C32217CE354000F10DE /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				38B86C4C217D5773000F10DE /* Views */,
-				38B86C49217D573A000F10DE /* Protocols */,
-				38B86C4F217D61A0000F10DE /* Network client */,
-				38B86C52217D61ED000F10DE /* Manager */,
 				38B86C51217D61E1000F10DE /* Constants */,
 				38B86C50217D61D6000F10DE /* Loading  */,
+				38B86C52217D61ED000F10DE /* Manager */,
+				38B86C4F217D61A0000F10DE /* Network client */,
+				38B86C49217D573A000F10DE /* Protocols */,
+				38B86C4C217D5773000F10DE /* Views */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -290,8 +292,8 @@
 		38B86C4C217D5773000F10DE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				38B86C4D217D5784000F10DE /* MAMovieImage.swift */,
 				38EDA593217EBD1700C8381A /* MAErrorAlerts.swift */,
+				38B86C4D217D5784000F10DE /* MAMovieImage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -356,11 +358,11 @@
 		38C4B532217C258400657627 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				38B86C37217CED3D000F10DE /* FileManager + MoviesApp.swift */,
 				38C4B533217C25AC00657627 /* UICollectionViewCell + MoviesApp.swift */,
 				38C4B539217C38E100657627 /* UINavigationController + MoviesApp.swift */,
-				38B86C37217CED3D000F10DE /* FileManager + MoviesApp.swift */,
-				38B86C3F217CF5B0000F10DE /* UserDefaults + MoviesApp.swift */,
 				38B86C43217D12E3000F10DE /* UIViewController + MoviesApp.swift */,
+				38B86C3F217CF5B0000F10DE /* UserDefaults + MoviesApp.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -368,10 +370,11 @@
 		38C4B535217C271100657627 /* Movies detail */ = {
 			isa = PBXGroup;
 			children = (
-				38B86C25217C4D96000F10DE /* Models */,
 				38B86C22217C4BF7000F10DE /* Factory */,
-				38C4B53B217C43E600657627 /* Views */,
+				38B86C25217C4D96000F10DE /* Models */,
+				3830449421B08A2300D708F0 /* Presenter */,
 				38C4B536217C272800657627 /* View Controllers */,
+				38C4B53B217C43E600657627 /* Views */,
 			);
 			path = "Movies detail";
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				38C4B534217C25AC00657627 /* UICollectionViewCell + MoviesApp.swift in Sources */,
 				38B86C34217CE36B000F10DE /* MANetworkClient.swift in Sources */,
 				38B86C57217D629B000F10DE /* MANowPlayingEndpoint.swift in Sources */,
+				3830449621B08A4700D708F0 /* MAMovieDetailPresenter.swift in Sources */,
 				38B86C54217D6236000F10DE /* MAConfigurationEnpoint.swift in Sources */,
 				38B86C3C217CF06F000F10DE /* MAConstants.swift in Sources */,
 				38E78693217DE39D0058AFA2 /* MAConfiguration.swift in Sources */,
@@ -756,6 +760,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6389YLWL2N;
 				INFOPLIST_FILE = "$(SRCROOT)/MoviesApp/Supporting files/Info.plist";
@@ -766,6 +771,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.seblerom.MoviesApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -775,6 +781,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6389YLWL2N;
 				INFOPLIST_FILE = "$(SRCROOT)/MoviesApp/Supporting files/Info.plist";
@@ -785,6 +792,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.seblerom.MoviesApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

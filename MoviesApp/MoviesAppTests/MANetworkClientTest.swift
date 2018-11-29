@@ -29,7 +29,7 @@ class MANetworkClientTest: XCTestCase {
         moviesListPresenter.loadConfiguration()
         
         let expectation = XCTestExpectation(description: "Load configuration")
-        _ = XCTWaiter.wait(for: [expectation], timeout: 5.0)
+        _ = XCTWaiter.wait(for: [expectation],timeout: 5.0)
         let config2 = moviesListPresenter.configuration
         guard let _ = config2 else{
             XCTAssert(false,"Loading configuration did not succeed")
@@ -46,7 +46,7 @@ class MANetworkClientTest: XCTestCase {
         moviesListPresenter.loadMovies()
         
         let expectation = XCTestExpectation(description: "Load movies")
-        _ = XCTWaiter.wait(for: [expectation], timeout: 5.0)
+        _ = XCTWaiter.wait(for: [expectation],timeout: 5.0)
         let movies = moviesListPresenter.moviesModel
         guard let _ = movies else{
             XCTAssert(false,"Loading movies did not succeed")
@@ -63,7 +63,7 @@ class MANetworkClientTest: XCTestCase {
         moviesListPresenter.filterContent("Avengers")
         
         let expectation = XCTestExpectation(description: "Filter returns results")
-        _ = XCTWaiter.wait(for: [expectation], timeout: 5.0)
+        _ = XCTWaiter.wait(for: [expectation],timeout: 5.0)
         
         guard let _ = moviesListPresenter.filteredMoviesModel else{
             XCTAssert(false,"Loading movies from filter did not succeed")
@@ -80,7 +80,7 @@ class MANetworkClientTest: XCTestCase {
         moviesListPresenter.filterContent("asdfasdfasdfasd")
         
         let expectation = XCTestExpectation(description: "Filter doesn't returns results")
-        _ = XCTWaiter.wait(for: [expectation], timeout: 5.0)
+        _ = XCTWaiter.wait(for: [expectation],timeout: 5.0)
         
         if let results = moviesListPresenter.filteredMoviesModel?.results,!results.isEmpty {
             XCTAssert(false,"Loading movies from filter return results")

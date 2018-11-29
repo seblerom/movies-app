@@ -11,7 +11,7 @@ import Foundation
 class MAConfiguration {
     
     static let serialQueueName = "com.moviesapp.configuration.queue"
-    let serialQueue = DispatchQueue.init(label: serialQueueName, qos: .background)
+    let serialQueue = DispatchQueue(label: serialQueueName,qos: .background)
     
     func asynchronousConfigurationDataSource(completion:@escaping(_ configuration:MAApiImagesConfigurationModel?)-> Void) {
         
@@ -26,8 +26,9 @@ class MAConfiguration {
     
     func retrieveConfiguration(completion:@escaping(_ configModel:MAApiImagesConfigurationModel?) -> Void) {
         
-        guard let model = MAFileManager.get(MAConstants.Configuration.file, object: MAApiImagesConfigurationModel.self) else {
-            
+        guard let model = MAFileManager.get(MAConstants.Configuration.file,
+                                            object: MAApiImagesConfigurationModel.self)
+        else {
             retrieveConfigurationFromServer(completion: { completion($0) })
             return
         }
@@ -56,7 +57,7 @@ class MAConfiguration {
             case .success(let response):
                 DispatchQueue.global(qos: .background).async(execute: {
                     //Save to disk
-                    MAFileManager.save(MAConstants.Configuration.file, response as? MAApiImagesConfigurationModel)
+                    MAFileManager.save(MAConstants.Configuration.file,response as? MAApiImagesConfigurationModel)
                     //Save date to user defaults
                     UserDefaults.standard.save(Date())
                 })
@@ -72,7 +73,7 @@ class MAConfiguration {
         let previousDate = calendar.startOfDay(for: savedDate)
         let currentDate = calendar.startOfDay(for: Date())
         
-        let components = calendar.dateComponents([.day], from: previousDate, to: currentDate)
+        let components = calendar.dateComponents([.day],from: previousDate,to: currentDate)
         
         // 7 is an arbitrary value, according to themoviedb
         // documentation, the config is something to check

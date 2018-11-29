@@ -12,7 +12,8 @@ class MAFileManager {
     
     static func save<T:Encodable>(_ path:String,_ object:T) -> Void {
         
-        let url = URL(fileURLWithPath: path, relativeTo: FileManager.default.cacheDirectoryURL)
+        let url = URL(fileURLWithPath: path,
+                      relativeTo: FileManager.default.cacheDirectoryURL)
         
         let encoder = JSONEncoder()
         do {
@@ -25,12 +26,13 @@ class MAFileManager {
     
     static func get<T:Decodable>(_ path:String,object:T.Type) -> T? {
         
-        let url = URL(fileURLWithPath: path, relativeTo: FileManager.default.cacheDirectoryURL)
+        let url = URL(fileURLWithPath: path,
+                      relativeTo: FileManager.default.cacheDirectoryURL)
         
         let decoder = JSONDecoder()
         do {
             let data = try Data(contentsOf:url)
-            let model = try decoder.decode(object, from: data)
+            let model = try decoder.decode(object,from: data)
             return model
         } catch let error {
             print(error.localizedDescription)

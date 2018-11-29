@@ -17,8 +17,11 @@ class MANetworkClient {
         self.session = session
     }
     
-    typealias WebServiceResponse = (_ model:AnyObject?,_ error:Error?) -> Void
-    typealias response = (Result<Any, DataResponseError>) -> ()
+    typealias WebServiceResponse = (_ model:AnyObject?,
+                                    _ error:Error?) -> Void
+    
+    typealias response = (Result<Any,
+                          DataResponseError>) -> ()
     
     func execute(_ endpoint:MAEndpoint,completionHandler: @escaping response) {
         
@@ -27,44 +30,55 @@ class MANetworkClient {
             return
         }
         
-        session.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data,response,error) in
             
             DispatchQueue.main.async {
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.hasSuccessStatusCode, let data = data else {
+                
+                guard let httpResponse = response as? HTTPURLResponse,
+                                         httpResponse.hasSuccessStatusCode,
+                                         let data = data
+                else {
                     completionHandler(Result.failure(DataResponseError.network))
                     return
                 }
                 
                 completionHandler(Result.success(data))
             }
-            }.resume()
+        }.resume()
     }
 }
 
 class MANetworkClientDecodable<T:Codable>: MANetworkClient {
     
-    override func execute(_ endpoint: MAEndpoint, completionHandler: @escaping response) {
+    override func execute(_ endpoint: MAEndpoint,completionHandler: @escaping response) {
+        
         guard let url = endpoint.url else {
             completionHandler(Result.failure(DataResponseError.invalidUrl))
             return
         }
         
-        session.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data,response,error) in
             
             DispatchQueue.main.async {
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.hasSuccessStatusCode,let data = data else {
+                
+                guard let httpResponse = response as? HTTPURLResponse,
+                                         httpResponse.hasSuccessStatusCode,
+                                         let data = data
+                else {
                     completionHandler(Result.failure(DataResponseError.network))
                     return
                 }
                 
-                guard let decodedResponse = try? JSONDecoder().decode(T.self,from:data) else {
+                guard let decodedResponse = try? JSONDecoder().decode(T.self,from:data)
+                    
+                else {
                     completionHandler(Result.failure(DataResponseError.decoding))
                     return
                 }
                 
                 completionHandler(Result.success(decodedResponse))
             }
-            }.resume()
+        }.resume()
     }
     
 }
@@ -92,7 +106,7 @@ enum DataResponseError: Error {
     }
 }
 
-enum Result<T, U: Error> {
+enum Result<T,U: Error> {
     case success(T)
     case failure(U)
 }

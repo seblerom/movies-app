@@ -28,10 +28,10 @@ class MAMoviesListUITests: XCTestCase {
         let collectionView = app.collectionViews
         collectionView.children(matching: .cell).element(boundBy: 0).children(matching: .other).element.tap()
         let detailNavBar = app.navigationBars["Movie Details"]
-        XCTAssert(detailNavBar.exists, "Movies navbar does not exist")
+        XCTAssert(detailNavBar.exists,"Movies navbar does not exist")
         detailNavBar.buttons["Movies"].tap()
         let moviesNavBar = app.navigationBars["Movies"]
-        XCTAssert(moviesNavBar.exists, "Movies detail navbar does not exist")
+        XCTAssert(moviesNavBar.exists,"Movies detail navbar does not exist")
     }
     
     func testSwipeDown() {

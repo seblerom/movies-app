@@ -49,7 +49,7 @@ class MAMovieListCellCollectionViewCell: UICollectionViewCell {
 
 extension MAMovieListCellCollectionViewCell : MAConfigurable {
     
-    func configure(_ resultModel: MANowPlayingMoviesResultModel, _ configuration: MAApiImagesConfigurationModel) {
+    func configure(_ resultModel: MANowPlayingMoviesResultModel,_ configuration: MAApiImagesConfigurationModel) {
         self.resultModel = resultModel
         self.configuration = configuration
         prepareForLoadImage()
@@ -57,7 +57,7 @@ extension MAMovieListCellCollectionViewCell : MAConfigurable {
     
     private func prepareForLoadImage() {
         guard let path = resultModel?.posterPath else { return }
-        posterImage.loadImage(imageSize(), path)
+        posterImage.loadImage(imageSize(),path)
     }
     
     private func imageSize() -> String {

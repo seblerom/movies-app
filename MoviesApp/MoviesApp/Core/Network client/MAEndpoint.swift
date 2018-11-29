@@ -9,6 +9,7 @@
 import Foundation
 
 class MAEndpoint {
+    
     let url: URL?
     
     init(url: URL?) {
@@ -29,7 +30,9 @@ extension MAEndpoint {
     
     static func apiKeyValue(_ keyName:String) -> String {
         
-        guard let filePath = Bundle.main.path(forResource: MAConstants.Plist.fileName, ofType: MAConstants.Plist.fileExtension) else { return ""}
+        guard let filePath = Bundle.main.path(forResource: MAConstants.Plist.fileName,
+                                              ofType: MAConstants.Plist.fileExtension)
+        else { return "" }
         
         let plist = NSDictionary(contentsOfFile: filePath)
         
@@ -45,15 +48,15 @@ extension MAEndpoint {
 //Poster image - endpoint
 extension MAEndpoint {
     
-    static func image(_ size : String, _ path : String) -> MAEndpoint {
+    static func image(_ size : String,_ path : String) -> MAEndpoint {
         return MAImageEndpoint(
-            path: "/t/p/\(size)\(path)", queryItems: []
+            path: "/t/p/\(size)\(path)",queryItems: []
         )
     }
 }
 
 class MAImageEndpoint: MAEndpoint {
-    override init(path:String, queryItems:[URLQueryItem]) {
+    override init(path:String,queryItems:[URLQueryItem]) {
         var components = URLComponents()
         components.scheme = MAConstants.Urls.scheme
         components.host = MAConstants.Urls.hostImage
