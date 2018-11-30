@@ -50,7 +50,8 @@ extension MAEndpoint {
     
     static func image(_ size : String,_ path : String) -> MAEndpoint {
         return MAImageEndpoint(
-            path: "/t/p/\(size)\(path)",queryItems: []
+            path: "/t/p/\(size)\(path)",
+            queryItems: []
         )
     }
 }

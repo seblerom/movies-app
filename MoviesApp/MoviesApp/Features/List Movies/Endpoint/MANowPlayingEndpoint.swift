@@ -15,8 +15,10 @@ extension MAEndpoint {
         return MAEndpoint(
             path: "/3/movie/now_playing",
             queryItems: [
-                URLQueryItem(name: "api_key",value: apiKeyValue(MAConstants.Plist.key)),
-                URLQueryItem(name: "page",value: "\(page)")
+                URLQueryItem(name: "api_key",
+                             value: apiKeyValue(MAConstants.Plist.key)),
+                URLQueryItem(name: "page",
+                             value: "\(page)")
                 ]
         )
     }

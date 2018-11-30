@@ -12,16 +12,14 @@ import Foundation
 class MANetworkClient {
     
     let session:URLSession
+    typealias WebServiceResponse = (_ model:AnyObject?,
+        _ error:Error?) -> Void
+    typealias response = (Result<Any,
+        DataResponseError>) -> ()
     
     init(session:URLSession = URLSession.shared) {
         self.session = session
     }
-    
-    typealias WebServiceResponse = (_ model:AnyObject?,
-                                    _ error:Error?) -> Void
-    
-    typealias response = (Result<Any,
-                          DataResponseError>) -> ()
     
     func execute(_ endpoint:MAEndpoint,completionHandler: @escaping response) {
         

@@ -15,10 +15,14 @@ extension MAEndpoint {
         return MAEndpoint(
             path: "/3/search/movie",
             queryItems: [
-                URLQueryItem(name: "api_key",value: apiKeyValue(MAConstants.Plist.key)),
-                URLQueryItem(name: "query",value: query),
-                URLQueryItem(name: "include_adult",value: "\(includeAdult)"),
-                URLQueryItem(name: "language",value: "en-US")
+                URLQueryItem(name: "api_key",
+                             value: apiKeyValue(MAConstants.Plist.key)),
+                URLQueryItem(name: "query",
+                             value: query),
+                URLQueryItem(name: "include_adult",
+                             value: "\(includeAdult)"),
+                URLQueryItem(name: "language",
+                             value: "en-US")
                 ]
         )
     }

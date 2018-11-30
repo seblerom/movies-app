@@ -15,8 +15,9 @@ extension MAEndpoint {
         return MAEndpoint(
             path: "/3/configuration",
             queryItems: [
-                URLQueryItem(name: "api_key",value: apiKeyValue(MAConstants.Plist.key))
-                ]
+                URLQueryItem(name: "api_key",
+                             value: apiKeyValue(MAConstants.Plist.key))
+            ]
         )
     }
 }
